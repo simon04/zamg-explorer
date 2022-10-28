@@ -1,10 +1,17 @@
-# Astro + Vue Example
+# ZAMG Data Hub Explorer
 
-```
-npm create astro@latest -- --template framework-vue
-```
+A visual explorer tool for the ZAMG dataset.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/framework-vue)
+ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://opendefinition.org/licenses/cc-by/) license.
 
-This example showcases Astro working with [Vue](https://v3.vuejs.org/).
+## Links
 
+- https://data.hub.zamg.ac.at/
+- https://dataset.api.hub.zamg.ac.at/v1/docs/
+- https://dataset.api.hub.zamg.ac.at/v1/openapi-docs
+- https://dataset.api.hub.zamg.ac.at/v1/openapi.json
+
+## Author and License
+
+- Author: simon04
+- License: [GPL v3](https://www.gnu.org/licenses/gpl.html)
