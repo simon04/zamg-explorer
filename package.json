@@ -1,5 +1,7 @@
 {
-  "name": "@example/framework-vue",
+  "name": "zamg-explorer",
+  "author": "Simon Legner <Simon.Legner@gmail.com>",
+  "license": "GPL-3.0",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -11,8 +13,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vue": "^1.2.1",
     "astro": "^1.6.0",
-    "vue": "^3.2.37",
-    "@astrojs/vue": "^1.2.1"
+    "bootstrap": "^5.2.2",
+    "vue": "^3.2.37"
   }
 }

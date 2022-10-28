@@ -1,0 +1,33 @@
+---
+import "bootstrap/dist/css/bootstrap.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ZAMG Data Explorer</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand navbar-dark shadow-sm mb-5"
+      style="background-color: #702065;"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/">ZAMG Data Explorer</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-nav">
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/datasets">Datasets</a>
+            <a class="nav-link" href="/stations">Stationen</a>
+            <a class="nav-link" href="/parameters">Parameter</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <slot />
+    </div>
+  </body>
+</html>
