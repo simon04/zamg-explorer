@@ -68,19 +68,17 @@
       <div class="card-body">
         <table class="table table-sm">
           <tbody>
-            <tr v-for="parameter in props.parameters">
+            <ParameterRow
+              v-for="parameter in props.parameters"
+              :parameter="parameter"
+            >
               <td>
                 <input
                   type="checkbox"
                   :value="parameter.name"
                   v-model="parameters"
-                />
-              </td>
-              <th>{{ parameter.name }}</th>
-              <td>{{ parameter.long_name }}</td>
-              <td>{{ parameter.unit }}</td>
-              <td>{{ parameter.desc }}</td>
-            </tr>
+                /></td
+            ></ParameterRow>
           </tbody>
         </table>
       </div>
@@ -127,6 +125,7 @@ import {
   StationGeoJSONSerializer,
   StationMetadata,
 } from "./openapi";
+import ParameterRow from "./ParameterRow.vue";
 import SourceFooter from "./SourceFooter.vue";
 import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
