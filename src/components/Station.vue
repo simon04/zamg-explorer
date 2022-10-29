@@ -39,8 +39,8 @@ import { API, StationGeoJSONSerializer } from "./openapi";
 import TimeseriesChart from "./TimeseriesChart.vue";
 
 const params = useUrlSearchParams("history");
-params.start ||= formatISO(startOfYesterday(), {representation:'date'});
-params.end ||= formatISO(startOfTomorrow(), {representation:'date'});
+params.start ||= formatISO(startOfYesterday(), { representation: "date" });
+params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
 
 const stations = computed({
   get: () =>
