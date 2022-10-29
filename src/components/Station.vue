@@ -35,6 +35,16 @@
     </a>
   </div>
 
+  <table class="table">
+    <tbody>
+      <StationRow
+        v-for="station in props.stations"
+        v-show="stations.includes(station.id)"
+        :station="station"
+      />
+    </tbody>
+  </table>
+
   <div v-if="error">{{ error }}</div>
   <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
     <div class="spinner-border" role="status">
@@ -56,6 +66,7 @@ import {
   StationMetadata,
 } from "./openapi";
 import SourceFooter from "./SourceFooter.vue";
+import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
 
 const props = defineProps<{

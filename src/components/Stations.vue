@@ -18,23 +18,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="station in stations" v-show="matchesFilter(station)">
-        <td class="font-monospace">{{ station.id }}</td>
-        <th>
-          <a :href="data(station)">{{ station.name }}</a>
-        </th>
-        <td>{{ station.state }}</td>
-        <td class="text-end">{{ station.altitude }}&thinsp;m&thinsp;ü.A.</td>
-        <td>
-          <a :href="osm(station)">osm</a> <a :href="geo(station)">geo:</a>
-        </td>
-        <td class="font-monospace">
-          {{ station.valid_from.slice(0, "2006-01-02".length) }}
-        </td>
-        <td class="font-monospace">
-          {{ station.valid_to.slice(0, "2006-01-02".length) }}
-        </td>
-      </tr>
+      <StationRow
+        v-for="station in stations"
+        v-show="matchesFilter(station)"
+        :station="station"
+      />
     </tbody>
   </table>
 </template>
@@ -43,6 +31,7 @@
 import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 import type { StationMetadata } from "./openapi";
+import StationRow from "./StationRow.vue";
 
 const props = defineProps<{
   stations: StationMetadata[];
@@ -78,14 +67,4 @@ const stations = computed(() =>
     );
   })
 );
-
-function data(station: StationMetadata) {
-  return `/station/?station=${station.id}&parameter=TL&parameter=RR`;
-}
-function geo(station: StationMetadata) {
-  return `geo:${station.lon},${station.lat},${station.altitude}`;
-}
-function osm(station: StationMetadata) {
-  return `https://www.openstreetmap.org/?mlat=${station.lat}&mlon=${station.lon}`;
-}
 </script>
