@@ -15,7 +15,7 @@
     <div class="form-control p-0">
       <select multiple class="form-control rounded-0" v-model="parameters">
         <option v-for="p in props.parameters" :value="p.name">
-          {{ p.name }} [{{ p.unit }}] ({{ p.long_name }})
+          {{ formatParameterStr(p) }}
         </option>
       </select>
       <div>
@@ -45,13 +45,26 @@
     </a>
   </div>
 
+  <table class="table">
+    <tbody>
+      <StationRow
+        v-for="station in props.stations"
+        v-show="stations.includes(station.id)"
+        :station="station"
+      />
+    </tbody>
+  </table>
+
   <div v-if="error">{{ error }}</div>
   <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <TimeseriesChart v-else-if="data" :data="data" />
+  <template v-else-if="data">
+    <TimeseriesChart class="mt-5" :data="data" />
+    <TimeseriesStatistics class="mt-5" :data="data" />
+  </template>
   <SourceFooter :url="url" />
 </template>
 
@@ -66,7 +79,9 @@ import {
   StationMetadata,
 } from "./openapi";
 import SourceFooter from "./SourceFooter.vue";
+import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
+import TimeseriesStatistics from "./TimeseriesStatistics.vue";
 
 const props = defineProps<{
   stations: StationMetadata[];
@@ -107,4 +122,9 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
+
+function formatParameterStr(parameter: ParameterMetadataModel) {
+  const unit = parameter.unit ? `[${parameter.unit}]` : "";
+  return `${parameter.name} ${unit} (${parameter.long_name})`;
+}
 </script>
