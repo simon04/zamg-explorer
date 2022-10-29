@@ -40,7 +40,7 @@ function dataset(
     borderWidth: 1,
     backgroundColor: "transparent",
     radius: 0,
-    label: `${station.properties.station}: ${parameter.name} [${parameter.unit}]`,
+    label: `${station.properties.station}: ${parameter.name} ` + (parameter.unit ? `[${parameter.unit}]` : ''),
     data: props.data?.timestamps.map((timestamp, i) => ({
       x: new Date(timestamp).getTime(),
       y: parameter?.data[i] ?? NaN,
