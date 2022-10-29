@@ -99,7 +99,7 @@ const { isFetching, error, data } = useFetch(
 ).json<StationGeoJSONSerializer>();
 
 function formatParameterStr(parameter: ParameterMetadataModel) {
-	const unit = parameter.unit ? `[${parameter.unit}]` : '';
-	return `${parameter.name} ${unit} (${parameter.long_name})`;
+  const unit = parameter.unit ? `[${parameter.unit}]` : "";
+  return `${parameter.name} ${unit} (${parameter.long_name})`;
 }
 </script>
