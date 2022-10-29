@@ -3,12 +3,20 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text">Station</span>
-    <input type="text" class="form-control" v-model="stations" />
+    <select multiple class="form-control" v-model="stations">
+      <option v-for="s in props.stations" :value="String(s.id)">
+        {{ s.name }} ({{ s.state }}) <code>{{ s.id }}</code>
+      </option>
+    </select>
   </div>
 
   <div class="input-group mb-3">
     <span class="input-group-text">Parameter</span>
-    <input type="text" class="form-control" v-model="parameters" />
+    <select multiple class="form-control" v-model="parameters">
+      <option v-for="p in props.parameters" :value="p.name">
+        {{ p.name }} [{{ p.unit }}] ({{ p.long_name }})
+      </option>
+    </select>
   </div>
 
   <div class="input-group mb-3">
@@ -41,9 +49,19 @@
 import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
 import { formatISO, startOfTomorrow, startOfYesterday } from "date-fns";
 import { computed } from "vue";
-import { API, StationGeoJSONSerializer } from "./openapi";
+import {
+  API,
+  ParameterMetadataModel,
+  StationGeoJSONSerializer,
+  StationMetadata,
+} from "./openapi";
 import SourceFooter from "./SourceFooter.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
+
+const props = defineProps<{
+  stations: StationMetadata[];
+  parameters: ParameterMetadataModel[];
+}>();
 
 const params = useUrlSearchParams("history");
 params.start ||= formatISO(startOfYesterday(), { representation: "date" });
@@ -51,15 +69,13 @@ params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
 
 const stations = computed({
   get: () =>
-    Array.isArray(params.station) ? params.station.join() : params.station,
-  set: (v) => (params.station = Array.isArray(v) ? v.join() : v),
+    Array.isArray(params.station) ? params.station : [params.station],
+  set: (v) => (params.station = Array.isArray(v) ? v : [v]),
 });
 const parameters = computed({
   get: () =>
-    Array.isArray(params.parameter)
-      ? params.parameter.join()
-      : params.parameter,
-  set: (v) => (params.parameter = Array.isArray(v) ? v.join() : v),
+    Array.isArray(params.parameter) ? params.parameter : [params.parameter],
+  set: (v) => (params.parameter = Array.isArray(v) ? v : [v]),
 });
 
 const url = computed(
@@ -67,8 +83,8 @@ const url = computed(
     API +
     "/station/historical/tawes-v1-10min?" +
     new URLSearchParams({
-      station_ids: stations.value,
-      parameters: parameters.value,
+      station_ids: stations.value.join(),
+      parameters: parameters.value.join(),
       output_format: "geojson",
       start: params.start + "T00:00",
       end: params.end + "T00:00",
