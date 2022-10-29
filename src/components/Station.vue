@@ -14,7 +14,7 @@
     <span class="input-group-text">Parameter</span>
     <select multiple class="form-control" v-model="parameters">
       <option v-for="p in props.parameters" :value="p.name">
-        {{ p.name }} [{{ p.unit }}] ({{ p.long_name }})
+        {{ formatParameterStr(p) }}
       </option>
     </select>
   </div>
@@ -112,4 +112,9 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
+
+function formatParameterStr(parameter: ParameterMetadataModel) {
+  const unit = parameter.unit ? `[${parameter.unit}]` : "";
+  return `${parameter.name} ${unit} (${parameter.long_name})`;
+}
 </script>
