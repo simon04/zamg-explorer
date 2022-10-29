@@ -2,7 +2,7 @@
 layout: ../layouts/ExplorerLayout.astro
 ---
 
-# ZAMG Data Hub Explorer
+# 🌈 ZAMG Data Hub Explorer
 
 Ein visuelles Entdeckungswerkzeug für den ZAMG Data Hub.
 

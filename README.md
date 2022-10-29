@@ -1,4 +1,4 @@
-# ZAMG Data Hub Explorer
+# 🌈 ZAMG Data Hub Explorer
 
 A visual explorer tool for the ZAMG dataset.
 
