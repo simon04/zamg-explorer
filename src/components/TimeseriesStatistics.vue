@@ -6,10 +6,10 @@
     <thead>
       <th>Station</th>
       <th>Parameter</th>
-      <th class="text-end">min</th>
-      <th class="text-end">mean</th>
-      <th class="text-end">max</th>
-      <th class="text-end">sum</th>
+      <th class="text-end">Min</th>
+      <th class="text-end">⌀</th>
+      <th class="text-end">Max</th>
+      <th class="text-end">Summe</th>
     </thead>
     <tbody>
       <tr v-for="sp in stationsParameters">
