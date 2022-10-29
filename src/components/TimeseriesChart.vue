@@ -66,7 +66,22 @@ const config: ChartConfiguration = reactive<ChartConfiguration>({
       x: {
         type: "time",
         title: { text: "Datum/Uhrzeit" },
-        adapters: { date: deAT },
+        adapters: { date: { locale: deAT } },
+        time: {
+          isoWeekday: true,
+          displayFormats: {
+            datetime: "yyyy-MM-dd HH:mm:ss",
+            millisecond: "HH:mm:ss.SSS",
+            second: "HH:mm:ss",
+            minute: "HH:mm",
+            hour: "HH\u2070\u2070",
+            day: "d. MMM",
+            week: "PP",
+            month: "MMM yyyy",
+            quarter: "qqq yyyy",
+            year: "yyyy",
+          },
+        },
         ticks: {
           maxRotation: 0,
           major: { enabled: true },
