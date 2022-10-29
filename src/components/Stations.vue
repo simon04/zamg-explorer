@@ -7,7 +7,9 @@
   <table class="table">
     <tr v-for="station in stations">
       <td class="font-monospace">{{ station.id }}</td>
-      <th>{{ station.name }}</th>
+      <th>
+        <a :href="data(station)">{{ station.name }}</a>
+      </th>
       <td>{{ station.state }}</td>
       <td class="text-end">{{ station.altitude }}&thinsp;m&thinsp;ü.A.</td>
       <td><a :href="osm(station)">osm</a> <a :href="geo(station)">geo:</a></td>
@@ -29,6 +31,9 @@ const response = await fetch(url);
 const { stations }: { stations: StationMetadata[] } = await response.json();
 stations.sort((s1, s2) => s1.name.localeCompare(s2.name));
 
+function data(station: StationMetadata) {
+  return `/station?station=${station.id}&parameter=TL&parameter=RR`;
+}
 function geo(station: StationMetadata) {
   return `geo:${station.lon},${station.lat},${station.altitude}`;
 }
