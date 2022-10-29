@@ -31,7 +31,7 @@ const { stations }: { stations: StationMetadata[] } = await response.json();
 stations.sort((s1, s2) => s1.name.localeCompare(s2.name));
 
 function data(station: StationMetadata) {
-  return `/station?station=${station.id}&parameter=TL&parameter=RR`;
+  return `/station/?station=${station.id}&parameter=TL&parameter=RR`;
 }
 function geo(station: StationMetadata) {
   return `geo:${station.lon},${station.lat},${station.altitude}`;
