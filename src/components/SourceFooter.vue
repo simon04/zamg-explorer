@@ -1,9 +1,9 @@
 <template>
-  <p>
+  <footer class="mt-5 mb-3">
     Quelle: {{ props.url }},
     <a href="https://data.hub.zamg.ac.at/">ZAMG Data Hub</a>,
     <a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>
-  </p>
+  </footer>
 </template>
 
 <script setup lang="ts">
