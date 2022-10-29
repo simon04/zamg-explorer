@@ -1,5 +1,5 @@
 <template>
-  <h2>Stationen</h2>
+  <h2>{{ props.stations.length }} Stationen</h2>
   <div class="input-group mb-3">
     <span class="input-group-text">Suche</span>
     <input type="text" class="form-control" v-model="filter" />
