@@ -72,13 +72,18 @@ function statistics(
   } else if (mode === "sum" && unit !== "mm") {
     return "";
   }
+  const timestamp =
+    mode === "min" || mode === "max"
+      ? props.data.timestamps[parameter.data.indexOf(value)]
+      : "";
   return (
     value.toLocaleString("de-AT", {
       maximumFractionDigits: digits,
       minimumFractionDigits: digits,
     }) +
     "\u2009" +
-    unit
+    unit +
+    (timestamp ? ` (${timestamp.replace(":00+00:00", " UTC")})` : "")
   );
 }
 
