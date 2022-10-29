@@ -2,7 +2,10 @@
   <h2>Datasets</h2>
   <table class="table">
     <tr v-for="[dataset, k] in datasets">
-      <th>{{ dataset }}</th>
+      <th v-if="dataset.includes('tawes-v1-10min')">
+        <a href="/stations/">{{ dataset }}</a>
+      </th>
+      <th v-else>{{ dataset }}</th>
       <td>{{ k.type }}</td>
       <td>{{ k.mode }}</td>
       <td>{{ k.response_formats.join(", ") }}</td>
