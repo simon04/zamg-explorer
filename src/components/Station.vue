@@ -37,26 +37,13 @@
 
   <table class="table">
     <tbody>
-    <tr v-for="station in props.stations" v-show="matchesFilter(station)">
-      <td class="font-monospace">{{ station.id }}</td>
-      <th>
-        {{ station.name }}
-      </th>
-      <td>{{ station.state }}</td>
-      <td class="text-end">{{ station.altitude }}&thinsp;m&thinsp;ü.A.</td>
-      <td>
-        <a :href="osm(station)">osm</a> <a :href="geo(station)">geo:</a>
-      </td>
-      <td class="font-monospace">
-        {{ station.valid_from.slice(0, "2006-01-02".length) }}
-      </td>
-      <td class="font-monospace">
-        {{ station.valid_to.slice(0, "2006-01-02".length) }}
-      </td>
-    </tr>
+      <StationRow
+        v-for="station in props.stations"
+        v-show="stations.includes(station.id)"
+        :station="station"
+      />
     </tbody>
   </table>
-
 
   <div v-if="error">{{ error }}</div>
   <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
@@ -79,6 +66,7 @@ import {
   StationMetadata,
 } from "./openapi";
 import SourceFooter from "./SourceFooter.vue";
+import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
 
 const props = defineProps<{
@@ -120,15 +108,4 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
-
-function matchesFilter(station: StationMetadata) {
-	return stations.value.indexOf(station.id) > -1;
-}
-
-function geo(station: StationMetadata) {
-	return `geo:${station.lon},${station.lat},${station.altitude}`;
-}
-function osm(station: StationMetadata) {
-	return `https://www.openstreetmap.org/?mlat=${station.lat}&mlon=${station.lon}`;
-}
 </script>
