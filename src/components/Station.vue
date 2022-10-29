@@ -6,7 +6,11 @@
   </p>
 
   <div v-if="error">{{ error }}</div>
-  <div v-else-if="isFetching">Loading {{ url }} ...</div>
+  <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
   <TimeseriesChart v-else-if="data" :data="data" />
 </template>
 
