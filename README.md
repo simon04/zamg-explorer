@@ -13,6 +13,15 @@ ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://o
 - https://dataset.api.hub.zamg.ac.at/v1/openapi-docs
 - https://dataset.api.hub.zamg.ac.at/v1/openapi.json
 
+## Contributing
+
+This project uses bleeding-edge technology in order to maximize development effort, experience and joy.
+
+- https://astro.build/
+- https://vuejs.org/
+- https://vueuse.org/
+- https://getbootstrap.com/
+
 ## Author and License
 
 - Author: simon04
