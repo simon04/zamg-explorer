@@ -1,8 +1,13 @@
 ---
 import Station from "../components/Station.vue";
 import ExplorerLayout from "../layouts/ExplorerLayout.astro";
+import { API, StationMetadata } from "../components/openapi";
+
+const url = API + "/station/current/tawes-v1-10min/metadata";
+const response = await fetch(url);
+const { stations }: { stations: StationMetadata[] } = await response.json();
 ---
 
 <ExplorerLayout>
-  <Station client:only />
+  <Station client:only stations={stations} />
 </ExplorerLayout>

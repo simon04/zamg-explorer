@@ -3,7 +3,27 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text">Station</span>
-    <input type="text" class="form-control" v-model="stations" />
+    <input type="text" class="form-control" v-model="station" />
+    <span class="input-group-text" v-if="stationMeta">{{
+      stationMeta.name
+    }}</span>
+    <span class="input-group-text" v-if="stationMeta">{{
+      stationMeta.state
+    }}</span>
+    <span class="input-group-text" v-if="stationMeta"
+      >{{ stationMeta.altitude }}&thinsp;m&thinsp;ü.A.</span
+    >
+    <span class="input-group-text" v-if="stationMeta"
+      >{{ stationMeta.valid_from.slice(0, "2006-01-02".length) }} bis
+      {{ stationMeta.valid_to.slice(0, "2006-01-02".length) }}</span
+    >
+    <span class="input-group-text" v-if="stationMeta"
+      ><a :href="osm(stationMeta)" target="_blank">osm</a>&thinsp;<a
+        :href="geo(stationMeta)"
+        target="_blank"
+        >geo:</a
+      ></span
+    >
   </div>
 
   <div class="input-group mb-3">
@@ -41,15 +61,25 @@
 import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
 import { formatISO, startOfTomorrow, startOfYesterday } from "date-fns";
 import { computed } from "vue";
-import { API, StationGeoJSONSerializer } from "./openapi";
+import { API, StationGeoJSONSerializer, StationMetadata } from "./openapi";
 import SourceFooter from "./SourceFooter.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
+
+const props = defineProps<{
+  stations: StationMetadata[];
+}>();
+
+const stationMeta = computed(() =>
+  props.stations.find(
+    (s: StationMetadata) => s.id.toString() === station.value.toString()
+  )
+);
 
 const params = useUrlSearchParams("history");
 params.start ||= formatISO(startOfYesterday(), { representation: "date" });
 params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
 
-const stations = computed({
+const station = computed({
   get: () =>
     Array.isArray(params.station) ? params.station.join() : params.station,
   set: (v) => (params.station = Array.isArray(v) ? v.join() : v),
@@ -67,7 +97,7 @@ const url = computed(
     API +
     "/station/historical/tawes-v1-10min?" +
     new URLSearchParams({
-      station_ids: stations.value,
+      station_ids: station.value,
       parameters: parameters.value,
       output_format: "geojson",
       start: params.start + "T00:00",
@@ -81,4 +111,11 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
+
+function geo(station: StationMetadata) {
+  return `geo:${station.lon},${station.lat},${station.altitude}`;
+}
+function osm(station: StationMetadata) {
+  return `https://www.openstreetmap.org/?mlat=${station.lat}&mlon=${station.lon}`;
+}
 </script>
