@@ -1,10 +1,17 @@
 ---
 import ExplorerLayout from "../layouts/ExplorerLayout.astro";
 import Stations from "../components/Stations.vue";
+import SourceFooter from "../components/SourceFooter.vue";
+import { API, StationMetadata } from "../components/openapi";
+
+const url = API + "/station/current/tawes-v1-10min/metadata";
+const response = await fetch(url);
+const { stations }: { stations: StationMetadata[] } = await response.json();
 ---
 
 <ExplorerLayout>
   <div class="table-responsive">
-    <Stations />
+    <Stations client:idle stations={stations} />
   </div>
+  <SourceFooter url={url} />
 </ExplorerLayout>
