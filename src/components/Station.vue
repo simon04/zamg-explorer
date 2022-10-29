@@ -23,7 +23,7 @@
   </details>
 
   <details class="mb-3">
-    <summary>Aktive Stationen: {{ stations.join(", ") }}</summary>
+    <summary>Tabelle der ausgewählten Stationen anzeigen</summary>
     <div class="card">
       <div class="card-body">
         <table class="table table-sm">
@@ -55,18 +55,24 @@
       </span>
     </summary>
     <div class="card" style="max-height: 400px; overflow-x: scroll">
-      <div class="card-body" style="column-width: 20rem">
-        <div class="form-check" v-for="p in props.parameters">
-          <label class="form-check-label">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              :value="p.name"
-              v-model="parameters"
-            />
-            {{ formatParameterStr(p) }}
-          </label>
-        </div>
+      <div class="card-body">
+        <table class="table table-sm">
+          <tbody>
+            <tr v-for="parameter in props.parameters">
+              <td>
+                <input
+                  type="checkbox"
+                  :value="parameter.name"
+                  v-model="parameters"
+                />
+              </td>
+              <th>{{ parameter.name }}</th>
+              <td>{{ parameter.long_name }}</td>
+              <td>{{ parameter.unit }}</td>
+              <td>{{ parameter.desc }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <div></div>
