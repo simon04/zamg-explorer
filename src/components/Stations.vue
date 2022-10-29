@@ -1,9 +1,5 @@
 <template>
   <h2>Stationen</h2>
-  <p>
-    Quelle: {{ url }}, <a href="https://data.hub.zamg.ac.at/">ZAMG Data Hub</a>,
-    <a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>
-  </p>
   <table class="table">
     <tr v-for="station in stations">
       <td class="font-monospace">{{ station.id }}</td>
@@ -21,10 +17,12 @@
       </td>
     </tr>
   </table>
+  <SourceFooter :url="url" />
 </template>
 
 <script setup lang="ts">
 import { API, StationMetadata } from "./openapi";
+import SourceFooter from "./SourceFooter.vue";
 const url = API + "/station/current/tawes-v1-10min/metadata";
 const response = await fetch(url);
 const { stations }: { stations: StationMetadata[] } = await response.json();
