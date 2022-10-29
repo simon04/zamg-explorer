@@ -1,33 +1,38 @@
 <template>
-	<h2>Stationen</h2>
-	<p>Quelle: {{ url }},
-		<a href="https://data.hub.zamg.ac.at/">ZAMG Data Hub</a>,
-		<a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>
-	</p>
-	<table class="table">
-		<tr v-for="station in stations">
-			<td class="font-monospace">{{ station.id }}</td>
-			<th>{{ station.name }}</th>
-			<td>{{ station.state }}</td>
-			<td class="text-end">{{ station.altitude }}&thinsp;m&thinsp;ü.A.</td>
-			<td><a :href="osm(station)">osm</a> <a :href="geo(station)">geo:</a></td>
-			<td class="font-monospace">{{ station.valid_from.slice(0, '2006-01-02'.length) }}</td>
-			<td class="font-monospace">{{ station.valid_to.slice(0, '2006-01-02'.length) }}</td>
-		</tr>
-	</table>
+  <h2>Stationen</h2>
+  <p>
+    Quelle: {{ url }}, <a href="https://data.hub.zamg.ac.at/">ZAMG Data Hub</a>,
+    <a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>
+  </p>
+  <table class="table">
+    <tr v-for="station in stations">
+      <td class="font-monospace">{{ station.id }}</td>
+      <th>{{ station.name }}</th>
+      <td>{{ station.state }}</td>
+      <td class="text-end">{{ station.altitude }}&thinsp;m&thinsp;ü.A.</td>
+      <td><a :href="osm(station)">osm</a> <a :href="geo(station)">geo:</a></td>
+      <td class="font-monospace">
+        {{ station.valid_from.slice(0, "2006-01-02".length) }}
+      </td>
+      <td class="font-monospace">
+        {{ station.valid_to.slice(0, "2006-01-02".length) }}
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script setup lang="ts">
-import type { StationMetadata } from './openapi'
-const url = "https://dataset.api.hub.zamg.ac.at/v1/station/current/tawes-v1-10min/metadata"
+import type { StationMetadata } from "./openapi";
+const url =
+  "https://dataset.api.hub.zamg.ac.at/v1/station/current/tawes-v1-10min/metadata";
 const response = await fetch(url);
 const { stations }: { stations: StationMetadata[] } = await response.json();
-stations.sort((s1, s2) => s1.name.localeCompare(s2.name))
+stations.sort((s1, s2) => s1.name.localeCompare(s2.name));
 
 function geo(station: StationMetadata) {
-	return `geo:${station.lon},${station.lat},${station.altitude}`
+  return `geo:${station.lon},${station.lat},${station.altitude}`;
 }
 function osm(station: StationMetadata) {
-	return `https://www.openstreetmap.org/?mlat=${station.lat}&mlon=${station.lon}`
+  return `https://www.openstreetmap.org/?mlat=${station.lat}&mlon=${station.lon}`;
 }
 </script>
