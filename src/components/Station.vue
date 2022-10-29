@@ -22,6 +22,15 @@
     <input type="date" class="form-control" v-model="params.end" />
   </div>
 
+  <div class="mb-3">
+    <button class="btn btn-primary me-2">
+      Graph aktualisieren (automatisch)
+    </button>
+    <a :href="url.replace(/geojson/, 'csv')" class="btn btn-success me-2">
+      CSV-Download
+    </a>
+  </div>
+
   <div v-if="error">{{ error }}</div>
   <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
     <div class="spinner-border" role="status">
