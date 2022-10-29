@@ -33,14 +33,14 @@
 
 <script setup lang="ts">
 import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
-import { startOfTomorrow, startOfYesterday } from "date-fns";
+import { formatISO, startOfTomorrow, startOfYesterday } from "date-fns";
 import { computed } from "vue";
 import { API, StationGeoJSONSerializer } from "./openapi";
 import TimeseriesChart from "./TimeseriesChart.vue";
 
 const params = useUrlSearchParams("history");
-params.start ||= startOfYesterday().toISOString().slice(0, "2006-01-02".length);
-params.end ||= startOfTomorrow().toISOString().slice(0, "2006-01-02".length);
+params.start ||= formatISO(startOfYesterday(), {representation:'date'});
+params.end ||= formatISO(startOfTomorrow(), {representation:'date'});
 
 const stations = computed({
   get: () =>
