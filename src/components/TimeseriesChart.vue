@@ -40,7 +40,7 @@ function dataset(
     borderWidth: 1,
     backgroundColor: "transparent",
     radius: 0,
-    label: `${parameter.name} [${parameter.unit}]`,
+    label: `${station.properties.station}: ${parameter.name} [${parameter.unit}]`,
     data: props.data?.timestamps.map((timestamp, i) => ({
       x: new Date(timestamp).getTime(),
       y: parameter?.data[i] ?? NaN,
@@ -51,11 +51,14 @@ function dataset(
 const config: ChartConfiguration = reactive<ChartConfiguration>({
   type: "line",
   data: {
-    datasets: props.data?.features?.flatMap((station) =>
-      Object.values(station.properties.parameters).map((parameter, i) =>
-        dataset(station, parameter, i)
+    datasets: props.data?.features
+      ?.flatMap((station) =>
+        Object.values(station.properties.parameters).map((parameter) => ({
+          station,
+          parameter,
+        }))
       )
-    ),
+      .map(({ station, parameter }, i) => dataset(station, parameter, i)),
   },
   options: {
     animation: false,
