@@ -2,9 +2,11 @@
 
 A visual explorer tool for the ZAMG dataset.
 
-ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://opendefinition.org/licenses/cc-by/) license.
+https://zamg-explorer.legner.me/
 
 ## Links
+
+ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://opendefinition.org/licenses/cc-by/) license.
 
 - https://data.hub.zamg.ac.at/
 - https://dataset.api.hub.zamg.ac.at/v1/docs/
@@ -14,4 +16,5 @@ ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://o
 ## Author and License
 
 - Author: simon04
-- License: [GPL v3](https://www.gnu.org/licenses/gpl.html)
+- License: [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.html)
+- GitHub: https://github.com/simon04/zamg-explorer
