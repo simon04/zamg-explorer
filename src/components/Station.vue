@@ -12,12 +12,8 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text">Parameter</span>
-    <div class="form-control no-padding">
-      <select
-        multiple
-        class="form-control no-border-radius"
-        v-model="parameters"
-      >
+    <div class="form-control p-0">
+      <select multiple class="form-control rounded-0" v-model="parameters">
         <option v-for="p in props.parameters" :value="p.name">
           {{ p.name }} [{{ p.unit }}] ({{ p.long_name }})
         </option>
@@ -25,7 +21,7 @@
       <div>
         <span
           v-for="p in props.parameters"
-          v-show="filterSelectedParams(p)"
+          v-show="parameters.includes(p.name)"
           class="badge text-bg-secondary m-1 me-0"
           >{{ p.name }}</span
         >
@@ -111,16 +107,4 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
-
-function filterSelectedParams(parameter: ParameterMetadataModel) {
-  return parameters.value.indexOf(parameter.name) > -1;
-}
 </script>
-<style>
-.no-border-radius {
-  border-radius: unset;
-}
-.no-padding {
-  padding: 0;
-}
-</style>
