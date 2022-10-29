@@ -1,7 +1,5 @@
 ---
 import "bootstrap/dist/css/bootstrap.css";
-const pathname = new URL(Astro.request.url).pathname;
-const currentPath = pathname.replaceAll('/','');
 ---
 
 <html lang="de">
@@ -20,10 +18,10 @@ const currentPath = pathname.replaceAll('/','');
         <a class="navbar-brand" href="/">ZAMG Data Explorer</a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <div class="navbar-nav">
-            <a class={currentPath === "" ? "nav-link active" : "nav-link" } href="/">Home</a>
-            <a class={currentPath === "datasets" ? "nav-link active" : "nav-link" } href="/datasets/">Datasets</a>
-            <a class={currentPath === "stations" ? "nav-link active" : "nav-link" } href="/stations/">Stationen</a>
-            <a class={currentPath === "parameters" ? "nav-link active" : "nav-link" } href="/parameters/">Parameter</a>
+            <a class:list={[ 'nav-link', { active: Astro.url.pathname === "/" } ]} href="/">Home</a>
+            <a class:list={[ 'nav-link', { active: Astro.url.pathname.startsWith("/datasets") } ]} href="/datasets/">Datasets</a>
+            <a class:list={[ 'nav-link', { active: Astro.url.pathname.startsWith("/stations") } ]} href="/stations/">Stationen</a>
+            <a class:list={[ 'nav-link', { active: Astro.url.pathname.startsWith("/parameters") } ]} href="/parameters/">Parameter</a>
           </div>
         </div>
       </div>
