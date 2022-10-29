@@ -1,5 +1,6 @@
 <template>
   <tr>
+    <slot></slot>
     <td class="font-monospace">{{ station.id }}</td>
     <th>
       <a :href="data(station)">{{ station.name }}</a>
