@@ -51,7 +51,10 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  <TimeseriesChart v-else-if="data" :data="data" />
+  <template v-else-if="data">
+    <TimeseriesChart class="mt-5" :data="data" />
+    <TimeseriesStatistics class="mt-5" :data="data" />
+  </template>
   <SourceFooter :url="url" />
 </template>
 
@@ -68,6 +71,7 @@ import {
 import SourceFooter from "./SourceFooter.vue";
 import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
+import TimeseriesStatistics from "./TimeseriesStatistics.vue";
 
 const props = defineProps<{
   stations: StationMetadata[];
