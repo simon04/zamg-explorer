@@ -2,7 +2,17 @@
   <h2>Stationsdaten</h2>
 
   <details class="mb-3">
-    <summary>Stationen auswählen: {{ stations.join(", ") }}</summary>
+    <summary>
+      <span>Stationen auswählen:</span>
+      <span
+        v-for="s in props.stations"
+        v-show="stations.includes(s.id)"
+        class="badge text-bg-secondary m-1 me-0"
+      >
+        {{ s.name }} ({{ s.state }})
+        <span class="font-monospace">{{ s.id }}</span>
+      </span>
+    </summary>
     <div class="card" style="max-height: 400px; overflow-x: scroll">
       <div class="card-body">
         <table class="table table-sm">
