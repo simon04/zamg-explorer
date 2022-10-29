@@ -24,9 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import type { StationMetadata } from "./openapi";
-const url =
-  "https://dataset.api.hub.zamg.ac.at/v1/station/current/tawes-v1-10min/metadata";
+import { API, StationMetadata } from "./openapi";
+const url = API + "/station/current/tawes-v1-10min/metadata";
 const response = await fetch(url);
 const { stations }: { stations: StationMetadata[] } = await response.json();
 stations.sort((s1, s2) => s1.name.localeCompare(s2.name));

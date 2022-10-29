@@ -13,15 +13,15 @@
 <script setup lang="ts">
 import { useFetch, useUrlSearchParams } from "@vueuse/core";
 import { computed } from "vue";
-import type { StationGeoJSONSerializer } from "./openapi";
+import { API, StationGeoJSONSerializer } from "./openapi";
 import TimeseriesChart from "./TimeseriesChart.vue";
 
 const params = useUrlSearchParams("history");
 
-const API = "https://dataset.api.hub.zamg.ac.at/v1";
 const url = computed(
   () =>
-    `${API}/station/historical/tawes-v1-10min?` +
+    API +
+    "/station/historical/tawes-v1-10min?" +
     new URLSearchParams({
       station_ids: String(params.station),
       parameters: String(params.parameter),

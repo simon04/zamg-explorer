@@ -21,9 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ParameterMetadataModel } from "./openapi";
-const url =
-  "https://dataset.api.hub.zamg.ac.at/v1/station/current/tawes-v1-10min/metadata";
+import { API, ParameterMetadataModel } from "./openapi";
+const url = API + "/station/current/tawes-v1-10min/metadata";
 const response = await fetch(url);
 const { parameters }: { parameters: ParameterMetadataModel[] } =
   await response.json();

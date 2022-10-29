@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Dataset } from "./openapi";
-const url = "https://dataset.api.hub.zamg.ac.at/v1/datasets";
+import { API, Dataset } from "./openapi";
+const url = API + "/datasets";
 const response = await fetch(url);
 const record: Record<string, Dataset> = await response.json();
 const datasets = Object.entries(record);

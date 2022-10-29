@@ -7,6 +7,8 @@
 
 // https://dataset.api.hub.zamg.ac.at/v1/openapi.json
 
+export const API = "https://dataset.api.hub.zamg.ac.at/v1";
+
 export interface ValidationError {
   loc: string[];
   msg: string;
