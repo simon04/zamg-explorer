@@ -1,5 +1,12 @@
 ---
 import "bootstrap/dist/css/bootstrap.css";
+
+const menuItems = [
+  ["/", "Home"],
+  ["/datasets/", "Datasets"],
+  ["/stations/", "Stationen"],
+  ["/parameters/", "Parameter"],
+];
 ---
 
 <html lang="de">
@@ -24,39 +31,24 @@ import "bootstrap/dist/css/bootstrap.css";
         <a class="navbar-brand" href="/">🌈 ZAMG Data Hub Explorer</a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <div class="navbar-nav">
-            <a
-              class:list={["nav-link", { active: Astro.url.pathname === "/" }]}
-              href="/"
-            >
-              Home
-            </a>
-            <a
-              class:list={[
-                "nav-link",
-                { active: Astro.url.pathname.startsWith("/datasets") },
-              ]}
-              href="/datasets/"
-            >
-              Datasets
-            </a>
-            <a
-              class:list={[
-                "nav-link",
-                { active: Astro.url.pathname.startsWith("/stations") },
-              ]}
-              href="/stations/"
-            >
-              Stationen
-            </a>
-            <a
-              class:list={[
-                "nav-link",
-                { active: Astro.url.pathname.startsWith("/parameters") },
-              ]}
-              href="/parameters/"
-            >
-              Parameter
-            </a>
+            {
+              menuItems.map(([href, label]) => (
+                <a
+                  href={href}
+                  class:list={[
+                    "nav-link",
+                    {
+                      active:
+                        href === "/"
+                          ? Astro.url.pathname === "/"
+                          : Astro.url.pathname.startsWith(href),
+                    },
+                  ]}
+                >
+                  {label}
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
