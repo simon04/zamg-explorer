@@ -7,18 +7,14 @@
       <th>Einheit</th>
       <th>Beschreibung</th>
     </tr>
-    <tr v-for="parameter in parameters">
-      <th>{{ parameter.name }}</th>
-      <td>{{ parameter.long_name }}</td>
-      <td>{{ parameter.unit }}</td>
-      <td>{{ parameter.desc }}</td>
-    </tr>
+    <ParameterRow v-for="parameter in parameters" :parameter="parameter" />
   </table>
   <SourceFooter :url="url" />
 </template>
 
 <script setup lang="ts">
 import { API, ParameterMetadataModel } from "./openapi";
+import ParameterRow from "./ParameterRow.vue";
 import SourceFooter from "./SourceFooter.vue";
 const url = API + "/station/current/tawes-v1-10min/metadata";
 const response = await fetch(url);

@@ -1,33 +1,90 @@
 <template>
   <h2>Stationsdaten</h2>
 
-  <div class="input-group mb-3">
-    <span class="input-group-text">Station</span>
-    <select multiple class="form-control" v-model="stations">
-      <option v-for="s in props.stations" :value="String(s.id)">
-        {{ s.name }} ({{ s.state }}) <code>{{ s.id }}</code>
-      </option>
-    </select>
-  </div>
-
-  <div class="input-group mb-3">
-    <span class="input-group-text">Parameter</span>
-    <div class="form-control p-0">
-      <select multiple class="form-control rounded-0" v-model="parameters">
-        <option v-for="p in props.parameters" :value="p.name">
-          {{ formatParameterStr(p) }}
-        </option>
-      </select>
-      <div>
-        <span
-          v-for="p in props.parameters"
-          v-show="parameters.includes(p.name)"
-          class="badge text-bg-secondary m-1 me-0"
-          >{{ p.name }}</span
-        >
+  <details class="mb-3">
+    <summary>
+      <span>Stationen auswählen:</span>
+      <span
+        v-for="s in props.stations"
+        v-show="stations.includes(s.id)"
+        class="badge text-bg-secondary m-1 me-0"
+      >
+        {{ s.name }} ({{ s.state }})
+        <span class="font-monospace">{{ s.id }}</span>
+      </span>
+    </summary>
+    <div class="card" style="max-height: 400px; overflow-x: scroll">
+      <div class="card-body">
+        <table class="table table-sm">
+          <tbody>
+            <StationRow
+              v-for="station in props.stations"
+              :station="station"
+              v-model="stations"
+            >
+              <td>
+                <input type="checkbox" :value="station.id" v-model="stations" />
+              </td>
+            </StationRow>
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
+  </details>
+
+  <details class="mb-3">
+    <summary>Tabelle der ausgewählten Stationen anzeigen</summary>
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-sm">
+          <tbody>
+            <StationRow
+              v-for="station in props.stations"
+              v-show="stations.includes(station.id)"
+              :station="station"
+            >
+              <td>
+                <input type="checkbox" :value="station.id" v-model="stations" />
+              </td>
+            </StationRow>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <details class="mb-3">
+    <summary>
+      <span>Parameter auswählen:</span>
+      <span
+        v-for="p in props.parameters"
+        v-show="parameters.includes(p.name)"
+        class="badge text-bg-secondary m-1 me-0"
+      >
+        <abbr :title="formatParameterStr(p)">{{ p.name }}</abbr>
+      </span>
+    </summary>
+    <div class="card" style="max-height: 400px; overflow-x: scroll">
+      <div class="card-body">
+        <table class="table table-sm">
+          <tbody>
+            <ParameterRow
+              v-for="parameter in props.parameters"
+              :parameter="parameter"
+            >
+              <td>
+                <input
+                  type="checkbox"
+                  :value="parameter.name"
+                  v-model="parameters"
+                /></td
+            ></ParameterRow>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div></div>
+  </details>
 
   <div class="input-group mb-3">
     <span class="input-group-text">Zeitbereich</span>
@@ -44,16 +101,6 @@
       CSV-Download
     </a>
   </div>
-
-  <table class="table">
-    <tbody>
-      <StationRow
-        v-for="station in props.stations"
-        v-show="stations.includes(station.id)"
-        :station="station"
-      />
-    </tbody>
-  </table>
 
   <div v-if="error">{{ error }}</div>
   <div v-else-if="isFetching" class="mt-5 d-flex justify-content-center">
@@ -78,6 +125,7 @@ import {
   StationGeoJSONSerializer,
   StationMetadata,
 } from "./openapi";
+import ParameterRow from "./ParameterRow.vue";
 import SourceFooter from "./SourceFooter.vue";
 import StationRow from "./StationRow.vue";
 import TimeseriesChart from "./TimeseriesChart.vue";
