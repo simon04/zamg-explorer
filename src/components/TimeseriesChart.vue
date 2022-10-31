@@ -66,7 +66,10 @@ const config: ChartConfiguration = reactive<ChartConfiguration>({
     animation: false,
     parsing: false,
     responsive: true,
-    interaction: { mode: "nearest" },
+    interaction: {
+      mode: "nearest",
+      intersect: false,
+    },
     scales: {
       x: {
         type: "time",
