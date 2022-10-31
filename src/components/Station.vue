@@ -110,7 +110,15 @@ const { isFetching, error, data } = useFetch(
     computed(() => "https://corsproxy.io/?" + encodeURIComponent(url.value)),
     400
   ),
-  { refetch: true }
+  {
+    refetch: true,
+    afterFetch: (ctx) => {
+    	if(ctx.data){
+    		ctx.data.filteredFeatures = ctx.data.features
+      }
+    	return ctx;
+    },
+  }
 ).json<StationGeoJSONSerializer>();
 
 function formatParameterStr(parameter: ParameterMetadataModel) {
