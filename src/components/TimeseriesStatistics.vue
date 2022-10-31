@@ -60,7 +60,8 @@ function statistics(
   parameter: GeoJSONFeatureParameter,
   digits = 1
 ): string {
-  let value = { min, mean, max, sum }[mode](parameter.data);
+  const nonNull = parameter.data.filter((v) => typeof v === "number");
+  let value = { min, mean, max, sum }[mode](nonNull);
   let unit = parameter.unit;
   if (typeof value !== "number") return "–";
   if (mode === "sum" && unit === "W/m²") {
@@ -74,7 +75,7 @@ function statistics(
   }
   const timestamp =
     mode === "min" || mode === "max"
-      ? props.data.timestamps[parameter.data.indexOf(value)]
+      ? props.data.timestamps[nonNull.indexOf(value)]
       : "";
   return (
     value.toLocaleString("de-AT", {
