@@ -16,5 +16,7 @@ export const displayFormats = Object.freeze({
 
 export function formatDate(date: Date | number): string {
   if (!date) return "";
-  return format(date, displayFormats.datetime, { locale: deAT });
+  return format(date, displayFormats.datetime, { locale: deAT })
+    .replace("GMT+1", "MEZ")
+    .replace("GMT+2", "MESZ");
 }
