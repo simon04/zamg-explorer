@@ -12,11 +12,21 @@
 
   <div class="input-group mb-3">
     <span class="input-group-text">Parameter</span>
-    <select multiple class="form-control" v-model="parameters">
-      <option v-for="p in props.parameters" :value="p.name">
-        {{ formatParameterStr(p) }}
-      </option>
-    </select>
+    <div class="form-control p-0">
+      <select multiple class="form-control rounded-0" v-model="parameters">
+        <option v-for="p in props.parameters" :value="p.name">
+          {{ formatParameterStr(p) }}
+        </option>
+      </select>
+      <div>
+        <span
+          v-for="p in props.parameters"
+          v-show="parameters.includes(p.name)"
+          class="badge text-bg-secondary m-1 me-0"
+          >{{ p.name }}</span
+        >
+      </div>
+    </div>
   </div>
 
   <div class="input-group mb-3">
