@@ -9,6 +9,7 @@ import Chart from "chart.js/auto";
 import type { ChartConfiguration, ChartDataset } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { deAT } from "date-fns/locale";
+import { displayFormats } from "../util/datetime";
 
 import type {
   StationGeoJSONSerializer,
@@ -77,18 +78,7 @@ const config: ChartConfiguration = reactive<ChartConfiguration>({
         adapters: { date: { locale: deAT } },
         time: {
           isoWeekday: true,
-          displayFormats: {
-            datetime: "yyyy-MM-dd HH:mm:ss",
-            millisecond: "HH:mm:ss.SSS",
-            second: "HH:mm:ss",
-            minute: "HH:mm",
-            hour: "HH\u2070\u2070",
-            day: "d. MMM",
-            week: "PP",
-            month: "MMM yyyy",
-            quarter: "qqq yyyy",
-            year: "yyyy",
-          },
+          displayFormats,
         },
         ticks: {
           maxRotation: 0,

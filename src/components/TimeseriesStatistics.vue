@@ -40,6 +40,7 @@ import type {
   GeoJSONFeatureParameter,
   StationGeoJSONSerializer,
 } from "./openapi";
+import { formatDate } from "../util/datetime";
 
 const props = defineProps<{
   data: StationGeoJSONSerializer;
@@ -84,7 +85,7 @@ function statistics(
     }) +
     "\u2009" +
     unit +
-    (timestamp ? ` (${timestamp.replace(":00+00:00", " UTC")})` : "")
+    (timestamp ? ` (${formatDate(new Date(timestamp))})` : "")
   );
 }
 
