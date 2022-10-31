@@ -1,7 +1,7 @@
 <template>
   <table class="table">
     <caption>
-      Statistiken
+      Statistiken {{selectedAreaDate}}
     </caption>
     <thead>
       <th>Station</th>
@@ -88,13 +88,28 @@ function statistics(
   );
 }
 
+let selectedDate;
+let selectedAreaDate = computed({
+	get: () => selectedDate || '',
+	set: (v) => (selectedDate = v),
+});
+
 const stationsParameters = computed(() =>
-  props.data?.features
-    ?.flatMap((station) =>
-      Object.values(station.properties.parameters).map((parameter) => ({
-        station: station.properties.station,
-        parameter,
-      }))
+  // TODO: trigger after filteredFeatures are changed in TimeseriesChart
+  props.data?.filteredFeatures
+    ?.flatMap((station) => {
+        if(station.filtered){
+			    selectedAreaDate = (station.from ? ` (${station.from.replace(":00+00:00", " UTC")})` : "")
+            + " - "
+            + (station.to ? ` (${station.to.replace(":00+00:00", " UTC")})` : "")
+        }
+        return Object.values(station.properties.parameters).map((parameter) => {
+        	return {
+            station: station.properties.station,
+            parameter,
+          }
+        })
+      }
     )
     .sort((sp1, sp2) => sp1.parameter.name.localeCompare(sp2.parameter.name))
 );

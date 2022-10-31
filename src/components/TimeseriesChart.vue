@@ -1,5 +1,7 @@
 <template>
-  <canvas ref="chartRef"></canvas>
+  <div class="position-relative">
+    <canvas ref="chartRef"></canvas>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -9,6 +11,9 @@ import Chart from "chart.js/auto";
 import type { ChartConfiguration, ChartDataset } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { deAT } from "date-fns/locale";
+import cloneDeep from "lodash/cloneDeep";
+import {ChartJsPluginRangeSelect} from "./chartjs-plugin-range-select";
+Chart.register(new ChartJsPluginRangeSelect());
 
 import type {
   StationGeoJSONSerializer,
@@ -46,6 +51,10 @@ function dataset(
     data: props.data?.timestamps.map((timestamp, i) => ({
       x: new Date(timestamp).getTime(),
       y: parameter?.data[i] ?? NaN,
+      station: station.properties.station,
+      parameter: (({ key, unit, name }) => ({ key, unit, name }))(parameter),
+      index: i,
+      timestamp
     })),
   };
 }
@@ -55,9 +64,9 @@ const config: ChartConfiguration = reactive<ChartConfiguration>({
   data: {
     datasets: props.data?.features
       ?.flatMap((station) =>
-        Object.values(station.properties.parameters).map((parameter) => ({
+        Object.keys(station.properties.parameters).map((key) => ({
           station,
-          parameter,
+			    parameter: { ...station.properties.parameters[key], key }
         }))
       )
       .map(({ station, parameter }, i) => dataset(station, parameter, i)),
@@ -100,6 +109,27 @@ const config: ChartConfiguration = reactive<ChartConfiguration>({
       },
       y: {},
     },
+	  rangeSelect: {
+		  onSelectionChanged: (result: Array<Array<any>>) => {
+		    props.data.filteredFeatures = cloneDeep(props.data.features);
+		    props.data.filteredFeatures.forEach((feature)=>{
+          const {station, parameters} = feature.properties;
+          for(const param in parameters){
+            const key = station + "-" + param;
+            const data = result[key];
+            if(data) {
+				      feature.filtered = true;
+				      feature.from = data[0].timestamp;
+				      feature.to = data[data.length - 1].timestamp;
+              parameters[param].data = parameters[param].data.filter((x, i) => {
+                return data.find((y) => y.index === i);
+              })
+            }
+          }
+        });
+		    console.log(props.data.filteredFeatures);
+		  }
+	  }
   },
 });
 
