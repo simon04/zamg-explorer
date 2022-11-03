@@ -1,10 +1,19 @@
 ---
 import ExplorerLayout from "../layouts/ExplorerLayout.astro";
 import Datasets from "../components/Datasets.vue";
+import { API, Dataset } from "../components/openapi";
+import SourceFooter from "../components/SourceFooter.vue";
+
+const url = API + "/datasets";
+const response = await fetch(url);
+const record: Record<string, Dataset> = await response.json();
+const datasets = Object.entries(record);
+datasets.sort(([d1], [d2]) => d1.localeCompare(d2));
 ---
 
 <ExplorerLayout>
   <div class="table-responsive">
-    <Datasets />
+    <Datasets datasets={datasets} />
   </div>
+  <SourceFooter url={url} />
 </ExplorerLayout>
