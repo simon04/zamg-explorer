@@ -9,6 +9,15 @@
 
 export const API = "https://dataset.api.hub.zamg.ac.at/v1";
 
+export const HISTORICAL_DATASETS = Object.freeze([
+  "klima-v1-10min",
+  "klima-v1-1d",
+  "klima-v1-1h",
+  "klima-v1-1m",
+  "synop-v1-1h",
+  "tawes-v1-10min",
+]);
+
 export interface ValidationError {
   loc: string[];
   msg: string;

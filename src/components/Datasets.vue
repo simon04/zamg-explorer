@@ -2,10 +2,23 @@
   <h2>{{ props.datasets.length }} Datasets</h2>
   <table class="table">
     <tr v-for="[dataset, k] in datasets">
-      <th v-if="dataset.includes('tawes-v1-10min')">
-        <a href="/stations/">{{ dataset }}</a>
+      <th>
+        {{ dataset }}
+        <template v-if="dataset.startsWith('/station/historical')">
+          <a
+            class="ms-2 btn btn-sm btn-outline-secondary"
+            :href="href(dataset, 'stations')"
+          >
+            Stationen
+          </a>
+          <a
+            class="ms-2 btn btn-sm btn-outline-secondary"
+            :href="href(dataset, 'parameters')"
+          >
+            Parameter
+          </a>
+        </template>
       </th>
-      <th v-else>{{ dataset }}</th>
       <td>{{ k.type }}</td>
       <td>{{ k.mode }}</td>
       <td>{{ k.response_formats.join(", ") }}</td>
@@ -18,4 +31,9 @@ import type { Dataset } from "./openapi";
 const props = defineProps<{
   datasets: [string, Dataset][];
 }>();
+
+function href(key: string, page: string): string {
+  const dataset = key.slice("/station/historical/".length);
+  return `/${dataset}/${page}/`;
+}
 </script>

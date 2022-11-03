@@ -19,8 +19,8 @@
           <tbody>
             <StationRow
               v-for="station in props.stations"
+              :dataset="props.dataset"
               :station="station"
-              v-model="stations"
             >
               <td>
                 <input type="checkbox" :value="station.id" v-model="stations" />
@@ -41,6 +41,7 @@
             <StationRow
               v-for="station in props.stations"
               v-show="stations.includes(station.id)"
+              :dataset="props.dataset"
               :station="station"
             >
               <td>
@@ -137,29 +138,39 @@ import TimeseriesChart from "./TimeseriesChart.vue";
 import TimeseriesStatistics from "./TimeseriesStatistics.vue";
 
 const props = defineProps<{
+  dataset: string;
   stations: StationMetadata[];
   parameters: ParameterMetadataModel[];
 }>();
 
 const params = useUrlSearchParams("history");
+params.parameter ||=
+  props.parameters.find((p) => ["TL", "TTX", "t"].includes(p.name))?.name || [];
 params.start ||= formatISO(startOfYesterday(), { representation: "date" });
 params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
 
 const stations = computed({
   get: () =>
-    Array.isArray(params.station) ? params.station : [params.station],
+    Array.isArray(params.station)
+      ? params.station
+      : typeof params.station === "string"
+      ? [params.station]
+      : [],
   set: (v) => (params.station = Array.isArray(v) ? v : [v]),
 });
 const parameters = computed({
   get: () =>
-    Array.isArray(params.parameter) ? params.parameter : [params.parameter],
+    Array.isArray(params.parameter)
+      ? params.parameter
+      : typeof params.parameter === "string"
+      ? [params.parameter]
+      : [],
   set: (v) => (params.parameter = Array.isArray(v) ? v : [v]),
 });
 
 const url = computed(
   () =>
-    API +
-    "/station/historical/tawes-v1-10min?" +
+    `${API}/station/historical/${props.dataset}?` +
     new URLSearchParams({
       station_ids: stations.value.join(),
       parameters: parameters.value.join(),

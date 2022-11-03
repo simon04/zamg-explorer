@@ -20,12 +20,13 @@
 <script setup lang="ts">
 import type { StationMetadata } from "./openapi";
 
-defineProps<{
+const props = defineProps<{
+  dataset: string;
   station: StationMetadata;
 }>();
 
 function data(station: StationMetadata) {
-  return `/station/?station=${station.id}&parameter=TL&parameter=RR`;
+  return `/${props.dataset}/station/?station=${station.id}`;
 }
 function geo(station: StationMetadata) {
   return `geo:${station.lon},${station.lat},${station.altitude}`;

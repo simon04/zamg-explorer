@@ -21,6 +21,7 @@
       <StationRow
         v-for="station in stations"
         v-show="matchesFilter(station)"
+        :dataset="props.dataset"
         :station="station"
       />
     </tbody>
@@ -34,6 +35,7 @@ import type { StationMetadata } from "./openapi";
 import StationRow from "./StationRow.vue";
 
 const props = defineProps<{
+  dataset: string;
   stations: StationMetadata[];
 }>();
 

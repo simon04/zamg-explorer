@@ -1,13 +1,41 @@
 ---
 import "bootstrap/dist/css/bootstrap.css";
+import { HISTORICAL_DATASETS } from "../components/openapi";
 
 const menuItems = [
-  ["/", "Home"],
-  ["/datasets/", "Datasets"],
-  ["/stations/", "Stationen"],
-  ["/station/", "Stationsdaten"],
-  ["/parameters/", "Parameter"],
+  { href: "/", label: "Home" },
+  { href: "/datasets/", label: "Datasets" },
+  {
+    href: "/tawes-v1-10min/stations/",
+    label: "Stationen",
+    childs: HISTORICAL_DATASETS.map((dataset) => ({
+      href: `/${dataset}/stations`,
+      label: dataset,
+    })),
+  },
+  {
+    href: "/tawes-v1-10min/station/",
+    label: "Stationsdaten",
+    childs: HISTORICAL_DATASETS.map((dataset) => ({
+      href: `/${dataset}/station`,
+      label: dataset,
+    })),
+  },
+  {
+    href: "/tawes-v1-10min/parameters/",
+    label: "Parameter",
+    childs: HISTORICAL_DATASETS.map((dataset) => ({
+      href: `/${dataset}/parameters`,
+      label: dataset,
+    })),
+  },
 ];
+
+function isActive(href: string): boolean {
+  return href === "/"
+    ? Astro.url.pathname === "/"
+    : Astro.url.pathname.startsWith(href);
+}
 ---
 
 <html lang="de">
@@ -31,29 +59,54 @@ const menuItems = [
       <div class="container">
         <a class="navbar-brand" href="/">🌈 ZAMG Data Hub Explorer</a>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <div class="navbar-nav">
+          <ul class="navbar-nav">
             {
-              menuItems.map(([href, label]) => (
-                <a
-                  href={href}
-                  class:list={[
-                    "nav-link",
-                    {
-                      active:
-                        href === "/"
-                          ? Astro.url.pathname === "/"
-                          : Astro.url.pathname.startsWith(href),
-                    },
-                  ]}
-                >
-                  {label}
-                </a>
+              menuItems.map(({ href, label, childs }) => (
+                <li class:list={[{ dropdown: childs?.length }]}>
+                  <a
+                    href={href}
+                    data-bs-toggle={childs?.length ? "dropdown" : undefined}
+                    class:list={[
+                      "nav-link",
+                      {
+                        active:
+                          isActive(href) ||
+                          childs?.some(({ href }) => isActive(href)),
+                        "dropdown-toggle": childs?.length,
+                      },
+                    ]}
+                  >
+                    {label}
+                  </a>
+                  {childs?.length && (
+                    <ul class="dropdown-menu">
+                      {childs.map(({ href, label }) => (
+                        <li>
+                          <a
+                            class:list={[
+                              "dropdown-item",
+                              {
+                                active: isActive(href),
+                              },
+                            ]}
+                            href={href}
+                          >
+                            {label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
               ))
             }
-          </div>
+          </ul>
         </div>
       </div>
     </nav>
+    <script>
+      import "bootstrap";
+    </script>
     <div class="container">
       <slot />
     </div>
