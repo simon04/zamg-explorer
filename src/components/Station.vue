@@ -109,7 +109,7 @@
     </div>
   </div>
   <template v-else-if="data">
-    <TimeseriesChart class="mt-5" :data="data" />
+    <TimeseriesChart class="mt-5" :data="data" :stations="props.stations" />
     <TimeseriesStatistics class="mt-5" :data="data" />
   </template>
   <SourceFooter :url="url" />

@@ -15,9 +15,11 @@ import type {
   StationGeoJSONSerializer,
   GeoJSONFeatureParameter,
   StationGeoJSONFeature,
+  StationMetadata,
 } from "./openapi";
 
 const props = defineProps<{
+  stations: StationMetadata[];
   data: StationGeoJSONSerializer;
 }>();
 // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7
@@ -36,13 +38,17 @@ function dataset(
   parameter: GeoJSONFeatureParameter,
   index: number
 ): ChartDataset {
+  const stationMetadata = props.stations.find(
+    (s) => s.id === station.properties.station
+  );
+  const stationName = stationMetadata?.name || station.properties.station;
   return {
     borderColor: colors[index % colors.length],
     borderWidth: 1,
     backgroundColor: "transparent",
     radius: 0,
     label:
-      `${station.properties.station}: ${parameter.name} ` +
+      `${stationName}: ${parameter.name} ` +
       (parameter.unit ? `[${parameter.unit}]` : ""),
     data: props.data?.timestamps.map((timestamp, i) => ({
       x: new Date(timestamp).getTime(),
