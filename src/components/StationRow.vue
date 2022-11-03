@@ -26,9 +26,7 @@ const props = defineProps<{
 }>();
 
 function data(station: StationMetadata) {
-  const parameters =
-    props.dataset === "tawes-10-min" ? "&parameter=TL&parameter=RR" : "";
-  return `/${props.dataset}/station/?station=${station.id}${parameters}`;
+  return `/${props.dataset}/station/?station=${station.id}`;
 }
 function geo(station: StationMetadata) {
   return `geo:${station.lon},${station.lat},${station.altitude}`;
