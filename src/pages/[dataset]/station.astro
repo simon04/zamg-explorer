@@ -1,0 +1,36 @@
+---
+import {
+  API,
+  HISTORICAL_DATASETS,
+  ParameterMetadataModel,
+  StationMetadata,
+} from "../../components/openapi";
+import Station from "../../components/Station.vue";
+import ExplorerLayout from "../../layouts/ExplorerLayout.astro";
+
+const { dataset } = Astro.params;
+const url = API + "/station/historical/" + dataset + "/metadata";
+const response = await fetch(url);
+const {
+  stations,
+  parameters,
+}: { stations: StationMetadata[]; parameters: ParameterMetadataModel[] } =
+  await response.json();
+
+stations.sort(
+  (a, b) => a.state.localeCompare(b.state) || a.name.localeCompare(b.name)
+);
+
+export function getStaticPaths() {
+  return HISTORICAL_DATASETS.map((dataset) => ({ params: { dataset } }));
+}
+---
+
+<ExplorerLayout>
+  <Station
+    client:only
+    dataset={String(dataset)}
+    stations={stations}
+    parameters={parameters}
+  />
+</ExplorerLayout>

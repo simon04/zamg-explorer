@@ -1,0 +1,26 @@
+---
+import ExplorerLayout from "../../layouts/ExplorerLayout.astro";
+import Parameters from "../../components/Parameters.vue";
+import SourceFooter from "../../components/SourceFooter.vue";
+import {
+  API,
+  HISTORICAL_DATASETS,
+  ParameterMetadataModel,
+} from "../../components/openapi";
+const { dataset } = Astro.params;
+const url = API + "/station/historical/" + dataset + "/metadata";
+const response = await fetch(url);
+const { parameters }: { parameters: ParameterMetadataModel[] } =
+  await response.json();
+
+export function getStaticPaths() {
+  return HISTORICAL_DATASETS.map((dataset) => ({ params: { dataset } }));
+}
+---
+
+<ExplorerLayout>
+  <div class="table-responsive">
+    <Parameters parameters={parameters} />
+  </div>
+  <SourceFooter url={url} />
+</ExplorerLayout>
