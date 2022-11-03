@@ -146,7 +146,8 @@ const props = defineProps<{
 
 const params = useUrlSearchParams("history");
 params.parameter ||=
-  props.parameters.find((p) => ["TL", "TTX", "t"].includes(p.name))?.name || [];
+  props.parameters.find((p) => ["TL", "TTX", "T", "t"].includes(p.name))
+    ?.name || [];
 params.start ||= formatISO(startOfYesterday(), { representation: "date" });
 params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
 
