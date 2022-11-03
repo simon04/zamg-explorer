@@ -1,5 +1,8 @@
 <template>
-  <h2>{{ props.stations.length }} Stationen</h2>
+  <h2>
+    <template v-if="params.filter">{{ stations.length }}÷</template
+    >{{ props.stations.length }} Stationen
+  </h2>
   <div class="input-group mb-3">
     <span class="input-group-text">Suche</span>
     <input type="text" class="form-control" v-model="params.filter" />
@@ -58,17 +61,19 @@ function sortBy(key: keyof StationMetadata) {
 }
 
 const stations = computed(() =>
-  props.stations.sort((s1, s2) => {
-    const v1 = s1[sortKey.value];
-    const v2 = s2[sortKey.value];
-    return (
-      sortAscDesc.value *
-      (typeof v1 === "string" && typeof v2 === "string"
-        ? v1.localeCompare(v2)
-        : typeof v1 === "number" && typeof v2 === "number"
-        ? v1 - v2
-        : 0)
-    );
-  })
+  props.stations
+    .filter((station) => matchesFilter(station))
+    .sort((s1, s2) => {
+      const v1 = s1[sortKey.value];
+      const v2 = s2[sortKey.value];
+      return (
+        sortAscDesc.value *
+        (typeof v1 === "string" && typeof v2 === "string"
+          ? v1.localeCompare(v2)
+          : typeof v1 === "number" && typeof v2 === "number"
+          ? v1 - v2
+          : 0)
+      );
+    })
 );
 </script>
