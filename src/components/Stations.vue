@@ -2,7 +2,7 @@
   <h2>{{ props.stations.length }} Stationen</h2>
   <div class="input-group mb-3">
     <span class="input-group-text">Suche</span>
-    <input type="text" class="form-control" v-model="filter" />
+    <input type="text" class="form-control" v-model="params.filter" />
   </div>
 
   <table class="table">
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { computed } from "@vue/reactivity";
+import { useUrlSearchParams } from "@vueuse/core";
 import { ref } from "vue";
 import type { StationMetadata } from "./openapi";
 import StationRow from "./StationRow.vue";
@@ -39,9 +40,10 @@ const props = defineProps<{
   stations: StationMetadata[];
 }>();
 
-const filter = ref("");
+const params = useUrlSearchParams<{ filter: string }>("history");
+
 function matchesFilter(station: StationMetadata) {
-  return new RegExp(filter.value, "i").test(Object.values(station).join());
+  return new RegExp(params.filter, "i").test(Object.values(station).join());
 }
 
 const sortKey = ref<keyof StationMetadata>("name");
