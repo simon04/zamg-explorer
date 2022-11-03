@@ -117,7 +117,12 @@
 
 <script setup lang="ts">
 import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
-import { formatISO, startOfTomorrow, startOfYesterday } from "date-fns";
+import {
+  formatISO,
+  parseISO,
+  startOfTomorrow,
+  startOfYesterday,
+} from "date-fns";
 import { computed } from "vue";
 import {
   API,
@@ -159,8 +164,8 @@ const url = computed(
       station_ids: stations.value.join(),
       parameters: parameters.value.join(),
       output_format: "geojson",
-      start: params.start + "T00:00",
-      end: params.end + "T00:00",
+      start: formatISO(parseISO(String(params.start))),
+      end: formatISO(parseISO(String(params.end))),
     })
 );
 const { isFetching, error, data } = useFetch(
