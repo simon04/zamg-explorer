@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@astrojs/vue": "^1.2.1",
+    "@popperjs/core": "^2.11.6",
     "@vueuse/core": "^9.4.0",
     "astro": "^1.6.0",
     "bootstrap": "^5.2.2",
