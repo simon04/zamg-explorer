@@ -101,6 +101,7 @@
     <a :href="url.replace(/geojson/, 'csv')" class="btn btn-success me-2">
       CSV-Download
     </a>
+    <a :href="url" class="btn btn-success me-2">GeoJSON-Download</a>
   </div>
 
   <div v-if="error">{{ error }}</div>
