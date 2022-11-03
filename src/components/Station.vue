@@ -1,7 +1,7 @@
 <template>
   <h2>Stationsdaten</h2>
 
-  <details class="mb-3">
+  <details class="mb-3 d-print-none">
     <summary>
       <span>Stationen auswählen:</span>
       <span
@@ -32,7 +32,7 @@
     </div>
   </details>
 
-  <details class="mb-3">
+  <details class="mb-3 d-print-none">
     <summary>Tabelle der ausgewählten Stationen anzeigen</summary>
     <div class="card">
       <div class="card-body">
@@ -53,7 +53,7 @@
     </div>
   </details>
 
-  <details class="mb-3">
+  <details class="mb-3 d-print-none">
     <summary>
       <span>Parameter auswählen:</span>
       <span
@@ -86,14 +86,14 @@
     <div></div>
   </details>
 
-  <div class="input-group mb-3">
+  <div class="input-group mb-3 d-print-none">
     <span class="input-group-text">Zeitbereich</span>
     <input type="date" class="form-control" v-model="params.start" />
     <span class="input-group-text">…</span>
     <input type="date" class="form-control" v-model="params.end" />
   </div>
 
-  <div class="mb-3">
+  <div class="mb-3 d-print-none">
     <button class="btn btn-primary me-2">
       Graph aktualisieren (automatisch)
     </button>
