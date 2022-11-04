@@ -16,16 +16,15 @@
     "@astrojs/vue": "^1.2.1",
     "@popperjs/core": "^2.11.6",
     "@vueuse/core": "^9.4.0",
+    "@vueuse/math": "^9.4.0",
     "astro": "^1.6.0",
     "bootstrap": "^5.2.2",
     "chart.js": "^3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",
     "date-fns": "^2.29.3",
-    "lodash": "^4.17.21",
     "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.186",
     "prettier": "^2.7.1"
   }
 }

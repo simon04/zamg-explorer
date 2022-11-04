@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { max, min, mean, sum } from "lodash";
+import { useAverage, useMax, useMin, useSum } from "@vueuse/math";
 
 import type {
   GeoJSONFeatureParameter,
@@ -62,7 +62,9 @@ function statistics(
   digits = 1
 ): string {
   const nonNull = parameter.data.filter((v) => typeof v === "number");
-  let value = { min, mean, max, sum }[mode](nonNull);
+  let { value } = { min: useMin, mean: useAverage, max: useMax, sum: useSum }[
+    mode
+  ](nonNull);
   let unit = parameter.unit;
   if (typeof value !== "number") return "–";
   if (mode === "sum" && unit === "W/m²") {
