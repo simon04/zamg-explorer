@@ -15,14 +15,15 @@
   "dependencies": {
     "@astrojs/vue": "^1.2.1",
     "@popperjs/core": "^2.11.6",
-    "@vueuse/core": "^9.4.0",
-    "@vueuse/math": "^9.4.0",
-    "astro": "^1.6.0",
+    "@vue/reactivity": "^3.2.45",
+    "@vueuse/core": "^9.5.0",
+    "@vueuse/math": "^9.5.0",
+    "astro": "^1.6.7",
     "bootstrap": "^5.2.2",
     "chart.js": "^3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",
     "date-fns": "^2.29.3",
-    "vue": "^3.2.37"
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "prettier": "^2.7.1"
