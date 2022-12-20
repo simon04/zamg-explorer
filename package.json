@@ -18,7 +18,7 @@
     "@vue/reactivity": "^3.2.45",
     "@vueuse/core": "^9.5.0",
     "@vueuse/math": "^9.5.0",
-    "astro": "^1.6.7",
+    "astro": "^1.7.2",
     "bootstrap": "^5.2.2",
     "chart.js": "^3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",
