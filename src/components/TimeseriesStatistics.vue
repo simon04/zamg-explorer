@@ -35,12 +35,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useAverage, useMax, useMin, useSum } from "@vueuse/math";
+import uPlot from "uplot";
 
 import type {
   GeoJSONFeatureParameter,
   StationGeoJSONSerializer,
 } from "./openapi";
-import { formatDate } from "../util/datetime";
+import { formatNumber } from "../util/formatters";
 
 const props = defineProps<{
   data: StationGeoJSONSerializer;
@@ -56,11 +57,7 @@ const timestampDistanceSeconds = computed(
 
 type Mode = "min" | "mean" | "max" | "sum";
 
-function statistics(
-  mode: Mode,
-  parameter: GeoJSONFeatureParameter,
-  digits = 1
-): string {
+function statistics(mode: Mode, parameter: GeoJSONFeatureParameter): string {
   const nonNull = parameter.data.filter((v) => typeof v === "number");
   let { value } = { min: useMin, mean: useAverage, max: useMax, sum: useSum }[
     mode
@@ -80,14 +77,11 @@ function statistics(
     mode === "min" || mode === "max"
       ? props.data.timestamps[nonNull.indexOf(value)]
       : "";
+  const timestampString =
+    timestamp &&
+    uPlot.fmtDate("{YYYY}-{MM}-{DD} {HH}:{mm}")(new Date(timestamp));
   return (
-    value.toLocaleString("de-AT", {
-      maximumFractionDigits: digits,
-      minimumFractionDigits: digits,
-    }) +
-    "\u2009" +
-    unit +
-    (timestamp ? ` (${formatDate(new Date(timestamp))})` : "")
+    formatNumber(value, unit) + (timestampString ? ` (${timestampString})` : "")
   );
 }
 

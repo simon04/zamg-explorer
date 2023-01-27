@@ -9,10 +9,8 @@ specifiers:
   '@vueuse/math': ^9.5.0
   astro: ^2.0.0
   bootstrap: ^5.2.2
-  chart.js: ^3.9.1
-  chartjs-adapter-date-fns: ^2.0.0
-  date-fns: ^2.29.3
   prettier: ^2.7.1
+  uplot: ^1.6.24
   vue: ^3.2.45
 
 dependencies:
@@ -24,9 +22,7 @@ dependencies:
   '@vueuse/math': 9.5.0_vue@3.2.45
   astro: 2.0.0
   bootstrap: 5.2.2_@popperjs+core@2.11.6
-  chart.js: 3.9.1
-  chartjs-adapter-date-fns: 2.0.0_chart.js@3.9.1
-  date-fns: 2.29.3
+  uplot: 1.6.24
   vue: 3.2.45
 
 devDependencies:
@@ -1455,18 +1451,6 @@ packages:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
     dev: false
 
-  /chart.js/3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
-    dev: false
-
-  /chartjs-adapter-date-fns/2.0.0_chart.js@3.9.1:
-    resolution: {integrity: sha512-rmZINGLe+9IiiEB0kb57vH3UugAtYw33anRiw5kS2Tu87agpetDDoouquycWc9pRsKtQo5j+vLsYHyr8etAvFw==}
-    peerDependencies:
-      chart.js: ^3.0.0
-    dependencies:
-      chart.js: 3.9.1
-    dev: false
-
   /ci-info/3.7.1:
     resolution: {integrity: sha512-4jYS4MOAaCIStSRwiuxc4B8MYhIe676yO1sYGzARnjXkWpmzZMMYxY6zu8WYWDhSuth5zhrQ1rhNSibyyvv4/w==}
     engines: {node: '>=8'}
@@ -1547,11 +1531,6 @@ packages:
 
   /csstype/2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
-    dev: false
-
-  /date-fns/2.29.3:
-    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
-    engines: {node: '>=0.11'}
     dev: false
 
   /debug/4.3.4:
@@ -3727,6 +3706,10 @@ packages:
       browserslist: 4.21.4
       escalade: 3.1.1
       picocolors: 1.0.0
+    dev: false
+
+  /uplot/1.6.24:
+    resolution: {integrity: sha512-WpH2BsrFrqxkMu+4XBvc0eCDsRBhzoq9crttYeSI0bfxpzR5YoSVzZXOKFVWcVC7sp/aDXrdDPbDZGCtck2PVg==}
     dev: false
 
   /util-deprecate/1.0.2:

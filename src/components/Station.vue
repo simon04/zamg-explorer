@@ -119,12 +119,6 @@
 
 <script setup lang="ts">
 import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
-import {
-  formatISO,
-  parseISO,
-  startOfTomorrow,
-  startOfYesterday,
-} from "date-fns";
 import { computed } from "vue";
 import {
   API,
@@ -144,12 +138,19 @@ const props = defineProps<{
   parameters: ParameterMetadataModel[];
 }>();
 
+const startOfYesterday = new Date();
+startOfYesterday.setDate(startOfYesterday.getDate() - 1);
+startOfYesterday.setHours(0, 0, 0, 0);
+const startOfTomorrow = new Date();
+startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
+startOfTomorrow.setHours(0, 0, 0, 0);
+
 const params = useUrlSearchParams("history");
 params.parameter ||=
   props.parameters.find((p) => ["TL", "TTX", "T", "t"].includes(p.name))
     ?.name || [];
-params.start ||= formatISO(startOfYesterday(), { representation: "date" });
-params.end ||= formatISO(startOfTomorrow(), { representation: "date" });
+params.start ||= startOfYesterday.toISOString().slice(0, "2006-01-02".length);
+params.end ||= startOfTomorrow.toISOString().slice(0, "2006-01-02".length);
 
 const stations = computed({
   get: () =>
@@ -177,8 +178,8 @@ const url = computed(
       station_ids: stations.value.join(),
       parameters: parameters.value.join(),
       output_format: "geojson",
-      start: formatISO(parseISO(String(params.start))),
-      end: formatISO(parseISO(String(params.end))),
+      start: new Date(String(params.start)).toISOString(),
+      end: new Date(String(params.end)).toISOString(),
     })
 );
 const { isFetching, error, data } = useFetch(
