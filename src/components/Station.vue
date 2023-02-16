@@ -111,7 +111,14 @@
     </div>
   </div>
   <template v-else-if="data">
-    <TimeseriesChart class="mt-5" :data="data" :stations="props.stations" />
+    <template v-for="sp in stationParametersByUnit">
+      <TimeseriesChart
+        class="mt-5"
+        :timestamps="timestamps"
+        :station-parameters="sp"
+        :stations="props.stations"
+      />
+    </template>
     <TimeseriesStatistics class="mt-5" :data="data" />
   </template>
   <SourceFooter :url="url" />
@@ -189,6 +196,37 @@ const { isFetching, error, data } = useFetch(
   ),
   { refetch: true }
 ).json<StationGeoJSONSerializer>();
+
+const timestamps = computed(
+  () => data.value?.timestamps.map((t) => new Date(t).getTime() / 1000) ?? []
+);
+
+const stationParameters = computed(
+  () =>
+    data.value?.features?.flatMap((station) =>
+      Object.values(station.properties.parameters).map((parameter) => ({
+        station,
+        parameter,
+      }))
+    ) ?? []
+);
+
+const units = computed(() =>
+  stationParameters.value
+    .map(({ parameter }) => parameter.unit)
+    .filter((value, index, array) => array.indexOf(value) === index)
+);
+
+const stationParametersByUnit = computed(() =>
+  Object.fromEntries(
+    units.value.map((unit) => [
+      unit,
+      stationParameters.value?.filter(
+        ({ parameter }) => parameter.unit === unit
+      ),
+    ])
+  )
+);
 
 function formatParameterStr(parameter: ParameterMetadataModel) {
   const unit = parameter.unit ? `[${parameter.unit}]` : "";

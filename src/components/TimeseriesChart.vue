@@ -7,12 +7,20 @@ import { onMounted, onUnmounted, ref } from "vue";
 import uPlot from "uplot";
 import "uplot/dist/uPlot.min.css";
 
-import type { StationGeoJSONSerializer, StationMetadata } from "./openapi";
+import type {
+  GeoJSONFeatureParameter,
+  StationGeoJSONFeature,
+  StationMetadata,
+} from "./openapi";
 import { formatNumber } from "../util/formatters";
 
 const props = defineProps<{
   stations: StationMetadata[];
-  data: StationGeoJSONSerializer;
+  stationParameters: {
+    station: StationGeoJSONFeature;
+    parameter: GeoJSONFeatureParameter;
+  }[];
+  timestamps: number[];
 }>();
 // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7
 const colors = [
@@ -27,12 +35,6 @@ const colors = [
 
 const chartRef = ref<HTMLDivElement | null>(null);
 onMounted(() => {
-  const stationParameters = props.data?.features?.flatMap((station) =>
-    Object.values(station.properties.parameters).map((parameter) => ({
-      station,
-      parameter,
-    }))
-  );
   const config: uPlot.Options = {
     width: 1200,
     height: 600,
@@ -41,13 +43,23 @@ onMounted(() => {
         space: 80,
         values: "{YYYY}-{MM}-{DD}\n{HH}:{mm}",
       },
+      {
+        label: props.stationParameters
+          .map(({ parameter }) => parameter.name)
+          .filter((value, index, array) => array.indexOf(value) === index)
+          .join(", "),
+        values: (_, values) =>
+          values.map((v) =>
+            formatNumber(v, props.stationParameters[0].parameter.unit)
+          ),
+      },
     ],
     series: [
       {
         label: "Datum/Uhrzeit",
         value: "{YYYY}-{MM}-{DD} {HH}:{mm}",
       },
-      ...stationParameters.map(
+      ...props.stationParameters.map(
         ({ station, parameter }, index): uPlot.Series => {
           const stationName =
             props.stations.find((s) => s.id === station.properties.station)
@@ -62,8 +74,8 @@ onMounted(() => {
     ],
   };
   const data: uPlot.AlignedData = [
-    props.data?.timestamps.map((t) => new Date(t).getTime() / 1000),
-    ...stationParameters.map(({ parameter }) => parameter.data),
+    props.timestamps,
+    ...props.stationParameters.map(({ parameter }) => parameter.data),
   ];
   const chart = new uPlot(config, data, chartRef.value!);
   console.table(chart.axes[0].values);
