@@ -187,18 +187,18 @@ const url = computed(
       output_format: "geojson",
       start: new Date(String(params.start)).toISOString(),
       end: new Date(String(params.end)).toISOString(),
-    })
+    }),
 );
 const { isFetching, error, data } = useFetch(
   refDebounced(
     computed(() => "https://corsproxy.io/?" + encodeURIComponent(url.value)),
-    400
+    400,
   ),
-  { refetch: true }
+  { refetch: true },
 ).json<StationGeoJSONSerializer>();
 
 const timestamps = computed(
-  () => data.value?.timestamps.map((t) => new Date(t).getTime() / 1000) ?? []
+  () => data.value?.timestamps.map((t) => new Date(t).getTime() / 1000) ?? [],
 );
 
 const stationParameters = computed(
@@ -207,14 +207,14 @@ const stationParameters = computed(
       Object.values(station.properties.parameters).map((parameter) => ({
         station,
         parameter,
-      }))
-    ) ?? []
+      })),
+    ) ?? [],
 );
 
 const units = computed(() =>
   stationParameters.value
     .map(({ parameter }) => parameter.unit)
-    .filter((value, index, array) => array.indexOf(value) === index)
+    .filter((value, index, array) => array.indexOf(value) === index),
 );
 
 const stationParametersByUnit = computed(() =>
@@ -222,10 +222,10 @@ const stationParametersByUnit = computed(() =>
     units.value.map((unit) => [
       unit,
       stationParameters.value?.filter(
-        ({ parameter }) => parameter.unit === unit
+        ({ parameter }) => parameter.unit === unit,
       ),
-    ])
-  )
+    ]),
+  ),
 );
 
 function formatParameterStr(parameter: ParameterMetadataModel) {

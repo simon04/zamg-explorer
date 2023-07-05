@@ -10,8 +10,8 @@ const dependencies = Object.keys(pkg.dependencies)
     JSON.parse(
       readFileSync(`node_modules/${dependency}/package.json`, {
         encoding: "utf8",
-      })
-    )
+      }),
+    ),
   )
   .map(({ name, version, license, homepage }) => ({
     name,

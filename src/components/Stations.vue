@@ -74,6 +74,6 @@ const stations = computed(() =>
           ? v1 - v2
           : 0)
       );
-    })
+    }),
 );
 </script>

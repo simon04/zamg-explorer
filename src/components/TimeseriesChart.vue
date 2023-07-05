@@ -50,7 +50,7 @@ onMounted(() => {
           .join(", "),
         values: (_, values) =>
           values.map((v) =>
-            formatNumber(v, props.stationParameters[0].parameter.unit)
+            formatNumber(v, props.stationParameters[0].parameter.unit),
           ),
       },
     ],
@@ -69,7 +69,7 @@ onMounted(() => {
             value: (_, v) => formatNumber(v, parameter.unit),
             stroke: colors[index % colors.length],
           };
-        }
+        },
       ),
     ],
   };

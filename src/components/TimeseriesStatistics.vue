@@ -52,7 +52,7 @@ const timestampDistanceSeconds = computed(
   () =>
     (Date.parse(props.data.timestamps[1]) -
       Date.parse(props.data.timestamps[0])) /
-    1000
+    1000,
 );
 
 type Mode = "min" | "mean" | "max" | "sum";
@@ -85,14 +85,15 @@ function statistics(mode: Mode, parameter: GeoJSONFeatureParameter): string {
   );
 }
 
-const stationsParameters = computed(() =>
-  props.data?.features
-    ?.flatMap((station) =>
-      Object.values(station.properties.parameters).map((parameter) => ({
-        station: station.properties.station,
-        parameter,
-      }))
-    )
-    .sort((sp1, sp2) => sp1.parameter.name.localeCompare(sp2.parameter.name))
+const stationsParameters = computed(
+  () =>
+    props.data?.features
+      ?.flatMap((station) =>
+        Object.values(station.properties.parameters).map((parameter) => ({
+          station: station.properties.station,
+          parameter,
+        })),
+      )
+      .sort((sp1, sp2) => sp1.parameter.name.localeCompare(sp2.parameter.name)),
 );
 </script>
