@@ -33,6 +33,10 @@ const colors = [
   "#a65628",
 ];
 
+function cssVar(variable: string): string {
+  return getComputedStyle(document.documentElement).getPropertyValue(variable);
+}
+
 const chartRef = ref<HTMLDivElement | null>(null);
 onMounted(() => {
   const config: uPlot.Options = {
@@ -42,8 +46,26 @@ onMounted(() => {
       {
         space: 80,
         values: "{YYYY}-{MM}-{DD}\n{HH}:{mm}",
+        stroke: () => cssVar("--bs-body-color"),
+        ticks: {
+          stroke: () => cssVar("--bs-body-color"),
+          width: +cssVar("--bs-border-width"),
+        },
+        grid: {
+          stroke: () => cssVar("--bs-body-color"),
+          width: +cssVar("--bs-border-width"),
+        },
       },
       {
+        stroke: () => cssVar("--bs-body-color"),
+        ticks: {
+          stroke: () => cssVar("--bs-body-color"),
+          width: +cssVar("--bs-border-width"),
+        },
+        grid: {
+          stroke: () => cssVar("--bs-body-color"),
+          width: +cssVar("--bs-border-width"),
+        },
         label: props.stationParameters
           .map(({ parameter }) => parameter.name)
           .filter((value, index, array) => array.indexOf(value) === index)
