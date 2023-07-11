@@ -56,10 +56,10 @@ function isActive(href: string): boolean {
       class="navbar navbar-expand navbar-dark shadow-sm mb-5 d-print-none"
       style="background-color: #702065;"
     >
-      <div class="container">
+      <div class="container flex-wrap">
         <a class="navbar-brand" href="/">🌈 ZAMG Data Hub Explorer</a>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav flex-wrap">
             {
               menuItems.map(({ href, label, childs }) => (
                 <li class:list={[{ dropdown: childs?.length }]}>
