@@ -1,6 +1,6 @@
 # 🌈 ZAMG Data Hub Explorer
 
-A visual explorer tool for the ZAMG dataset.
+A visual explorer tool for the ZAMG Data Hub (aka. GeoSphere Austria Data Hub).
 
 https://zamg-explorer.legner.me/
 
