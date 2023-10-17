@@ -5,9 +5,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
-// https://dataset.api.hub.zamg.ac.at/v1/openapi.json
+// https://dataset.api.hub.geosphere.at/v1/openapi.json
 
-export const API = "https://dataset.api.hub.zamg.ac.at/v1";
+export const API = "https://dataset.api.hub.geosphere.at/v1";
 
 export const HISTORICAL_DATASETS = Object.freeze([
   "klima-v1-10min",

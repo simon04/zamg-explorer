@@ -6,12 +6,12 @@ https://zamg-explorer.legner.me/
 
 ## Links
 
-ZAMG.ac.at publishes datasets under the [Creative Commons Attribution](https://opendefinition.org/licenses/cc-by/) license.
+GeoSphere Austria publishes datasets under the [Creative Commons Attribution](https://opendefinition.org/licenses/cc-by/) license.
 
-- https://data.hub.zamg.ac.at/
-- https://dataset.api.hub.zamg.ac.at/v1/docs/
-- https://dataset.api.hub.zamg.ac.at/v1/openapi-docs
-- https://dataset.api.hub.zamg.ac.at/v1/openapi.json
+- https://data.hub.geosphere.at/
+- https://dataset.api.hub.geosphere.at/v1/docs/
+- https://dataset.api.hub.geosphere.at/v1/openapi-docs
+- https://dataset.api.hub.geosphere.at/v1/openapi.json
 
 ## Contributing
 
