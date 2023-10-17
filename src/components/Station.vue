@@ -129,9 +129,9 @@ import { refDebounced, useFetch, useUrlSearchParams } from "@vueuse/core";
 import { computed } from "vue";
 import {
   API,
-  ParameterMetadataModel,
-  StationGeoJSONSerializer,
-  StationMetadata,
+  type ParameterMetadataModel,
+  type StationGeoJSONSerializer,
+  type StationMetadata,
 } from "./openapi";
 import ParameterRow from "./ParameterRow.vue";
 import SourceFooter from "./SourceFooter.vue";

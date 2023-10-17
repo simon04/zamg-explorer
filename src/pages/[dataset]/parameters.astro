@@ -5,7 +5,7 @@ import SourceFooter from "../../components/SourceFooter.vue";
 import {
   API,
   HISTORICAL_DATASETS,
-  ParameterMetadataModel,
+  type ParameterMetadataModel,
 } from "../../components/openapi";
 const { dataset } = Astro.params;
 const url = API + "/station/historical/" + dataset + "/metadata";
