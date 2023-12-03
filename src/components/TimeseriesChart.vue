@@ -100,7 +100,6 @@ onMounted(() => {
     ...props.stationParameters.map(({ parameter }) => parameter.data),
   ];
   const chart = new uPlot(config, data, chartRef.value!);
-  console.table(chart.axes[0].values);
   onUnmounted(() => chart.destroy());
 });
 </script>
