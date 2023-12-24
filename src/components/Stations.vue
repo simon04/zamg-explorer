@@ -71,8 +71,8 @@ const stations = computed(() =>
         (typeof v1 === "string" && typeof v2 === "string"
           ? v1.localeCompare(v2)
           : typeof v1 === "number" && typeof v2 === "number"
-          ? v1 - v2
-          : 0)
+            ? v1 - v2
+            : 0)
       );
     }),
 );

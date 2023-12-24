@@ -164,8 +164,8 @@ const stations = computed({
     Array.isArray(params.station)
       ? params.station
       : typeof params.station === "string"
-      ? [params.station]
-      : [],
+        ? [params.station]
+        : [],
   set: (v) => (params.station = Array.isArray(v) ? v : [v]),
 });
 const parameters = computed({
@@ -173,8 +173,8 @@ const parameters = computed({
     Array.isArray(params.parameter)
       ? params.parameter
       : typeof params.parameter === "string"
-      ? [params.parameter]
-      : [],
+        ? [params.parameter]
+        : [],
   set: (v) => (params.parameter = Array.isArray(v) ? v : [v]),
 });
 
