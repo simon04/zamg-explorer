@@ -14,18 +14,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.0.2",
-    "@astrojs/vue": "^4.0.5",
+    "@astrojs/mdx": "^2.2.2",
+    "@astrojs/vue": "^4.0.9",
     "@popperjs/core": "^2.11.8",
-    "@vue/reactivity": "^3.3.13",
-    "@vueuse/core": "^10.7.0",
-    "@vueuse/math": "^10.7.0",
-    "astro": "^4.0.7",
-    "bootstrap": "^5.3.2",
-    "uplot": "^1.6.27",
-    "vue": "^3.3.13"
+    "@vue/reactivity": "^3.4.21",
+    "@vueuse/core": "^10.9.0",
+    "@vueuse/math": "^10.9.0",
+    "astro": "^4.5.10",
+    "bootstrap": "^5.3.3",
+    "uplot": "^1.6.30",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "prettier": "^3.1.1"
+    "prettier": "^3.2.5"
   }
 }
