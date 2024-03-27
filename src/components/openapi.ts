@@ -14,6 +14,10 @@ export const HISTORICAL_DATASETS = Object.freeze([
   "klima-v1-1d",
   "klima-v1-1h",
   "klima-v1-1m",
+  "klima-v2-10min",
+  "klima-v2-1d",
+  "klima-v2-1h",
+  "klima-v2-1m",
   "synop-v1-1h",
   "tawes-v1-10min",
 ]);
