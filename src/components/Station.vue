@@ -145,19 +145,17 @@ const props = defineProps<{
   parameters: ParameterMetadataModel[];
 }>();
 
-const startOfYesterday = new Date();
-startOfYesterday.setDate(startOfYesterday.getDate() - 1);
-startOfYesterday.setHours(0, 0, 0, 0);
-const startOfTomorrow = new Date();
-startOfTomorrow.setDate(startOfTomorrow.getDate() + 1);
-startOfTomorrow.setHours(0, 0, 0, 0);
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
 
 const params = useUrlSearchParams("history");
 params.parameter ||=
   props.parameters.find((p) => ["TL", "TTX", "T", "t"].includes(p.name))
     ?.name || [];
-params.start ||= startOfYesterday.toISOString().slice(0, "2006-01-02".length);
-params.end ||= startOfTomorrow.toISOString().slice(0, "2006-01-02".length);
+params.start ||= yesterday.toISOString().slice(0, "2006-01-02".length);
+params.end ||= tomorrow.toISOString().slice(0, "2006-01-02".length);
 
 const stations = computed({
   get: () =>
