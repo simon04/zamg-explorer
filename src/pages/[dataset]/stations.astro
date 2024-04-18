@@ -1,5 +1,6 @@
 ---
 import ExplorerLayout from "../../layouts/ExplorerLayout.astro";
+import StationMap from "../../components/StationMap.vue";
 import Stations from "../../components/Stations.vue";
 import SourceFooter from "../../components/SourceFooter.vue";
 import {
@@ -20,6 +21,7 @@ export function getStaticPaths() {
 
 <ExplorerLayout>
   <div class="table-responsive">
+    <StationMap client:only dataset={String(dataset)} stations={stations} />
     <Stations client:idle dataset={String(dataset)} stations={stations} />
   </div>
   <SourceFooter url={url} />

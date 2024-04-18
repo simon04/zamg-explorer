@@ -1267,12 +1267,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/geojson@npm:*":
+  version: 7946.0.14
+  resolution: "@types/geojson@npm:7946.0.14"
+  checksum: 10c0/54f3997708fa2970c03eeb31f7e4540a0eb6387b15e9f8a60513a1409c23cafec8d618525404573468b59c6fecbfd053724b3327f7fca416729c26271d799f55
+  languageName: node
+  linkType: hard
+
 "@types/hast@npm:^3.0.0":
   version: 3.0.3
   resolution: "@types/hast@npm:3.0.3"
   dependencies:
     "@types/unist": "npm:*"
   checksum: 10c0/0779740926efc1f856976abd95fcb04f4b45d885ec65ef148505722e15cd8fdf4e84d93bf29908131ae6b040f3ca1c1f0cf9fef1b35d52c90c76ff90cfc1214f
+  languageName: node
+  linkType: hard
+
+"@types/leaflet@npm:^1.9.11":
+  version: 1.9.11
+  resolution: "@types/leaflet@npm:1.9.11"
+  dependencies:
+    "@types/geojson": "npm:*"
+  checksum: 10c0/f79280862f63347efbc3a607abb878b1722c133c3ec8aa69a229f222a13231243829e5c770d148dd6f7de5aea12089f3842b4d4274a992a64bca1e3b629a1ed5
   languageName: node
   linkType: hard
 
@@ -3557,6 +3573,13 @@ __metadata:
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 10c0/e9de6cb49657b6fa70ba2d1448fd3d691a5c4370d8f7bbf1c2f64c24d461270f2117e1b0afe8cb3114f13bbd8e51de158c2a224953960331904e636a5e4c0f2a
+  languageName: node
+  linkType: hard
+
+"leaflet@npm:^1.9.4":
+  version: 1.9.4
+  resolution: "leaflet@npm:1.9.4"
+  checksum: 10c0/f639441dbb7eb9ae3fcd29ffd7d3508f6c6106892441634b0232fafb9ffb1588b05a8244ec7085de2c98b5ed703894df246898477836cfd0ce5b96d4717b5ca1
   languageName: node
   linkType: hard
 
@@ -6310,11 +6333,13 @@ __metadata:
     "@astrojs/mdx": "npm:^2.2.2"
     "@astrojs/vue": "npm:^4.0.9"
     "@popperjs/core": "npm:^2.11.8"
+    "@types/leaflet": "npm:^1.9.11"
     "@vue/reactivity": "npm:^3.4.21"
     "@vueuse/core": "npm:^10.9.0"
     "@vueuse/math": "npm:^10.9.0"
     astro: "npm:^4.5.10"
     bootstrap: "npm:^5.3.3"
+    leaflet: "npm:^1.9.4"
     prettier: "npm:^3.2.5"
     uplot: "npm:^1.6.30"
     vue: "npm:^3.4.21"

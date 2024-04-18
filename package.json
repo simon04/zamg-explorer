@@ -22,10 +22,12 @@
     "@vueuse/math": "^10.9.0",
     "astro": "^4.5.10",
     "bootstrap": "^5.3.3",
+    "leaflet": "^1.9.4",
     "uplot": "^1.6.30",
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.11",
     "prettier": "^3.2.5"
   }
 }
