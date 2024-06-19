@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import uPlot from "uplot";
 import "uplot/dist/uPlot.min.css";
 
@@ -13,6 +13,7 @@ import type {
   StationMetadata,
 } from "./openapi";
 import { formatNumber } from "../util/formatters";
+import { useElementSize } from "@vueuse/core";
 
 const props = defineProps<{
   stations: StationMetadata[];
@@ -38,6 +39,9 @@ function cssVar(variable: string): string {
 }
 
 const chartRef = ref<HTMLDivElement | null>(null);
+  
+const { width } = useElementSize(chartRef);
+
 onMounted(() => {
   const config: uPlot.Options = {
     width: 1200,
@@ -101,6 +105,10 @@ onMounted(() => {
   ];
   const chart = new uPlot(config, data, chartRef.value!);
   onUnmounted(() => chart.destroy());
+
+  watch(width, (w) => chart.setSize({ width: w, height: 600 }), {
+    immediate: true,
+  });
 });
 </script>
 
