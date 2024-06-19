@@ -21,8 +21,8 @@ export function getStaticPaths() {
 
 <ExplorerLayout>
   <div class="table-responsive">
-    <StationMap client:only dataset={String(dataset)} stations={stations} />
-    <Stations client:idle dataset={String(dataset)} stations={stations} />
+    <StationMap client:only="vue" dataset={String(dataset)} stations={stations} />
+    <Stations client:idle="vue" dataset={String(dataset)} stations={stations} />
   </div>
   <SourceFooter url={url} />
 </ExplorerLayout>
