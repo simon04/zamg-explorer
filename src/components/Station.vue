@@ -203,7 +203,7 @@ const stationParameters = computed(
   () =>
     data.value?.features?.flatMap((station) =>
       Object.values(station.properties.parameters).map((parameter) => ({
-        station,
+        station: station.properties.station,
         parameter,
       })),
     ) ?? [],

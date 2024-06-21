@@ -7,21 +7,18 @@ import { onMounted, onUnmounted, ref, watch } from "vue";
 import uPlot from "uplot";
 import "uplot/dist/uPlot.min.css";
 
-import type {
-  GeoJSONFeatureParameter,
-  StationGeoJSONFeature,
-  StationMetadata,
-} from "./openapi";
+import type { GeoJSONFeatureParameter, StationMetadata } from "./openapi";
 import { formatNumber } from "../util/formatters";
 import { useElementSize } from "@vueuse/core";
 
 const props = defineProps<{
   stations: StationMetadata[];
   stationParameters: {
-    station: StationGeoJSONFeature;
+    station: string;
     parameter: GeoJSONFeatureParameter;
   }[];
   timestamps: number[];
+  height?: number;
 }>();
 // https://colorbrewer2.org/?type=qualitative&scheme=Set1&n=7
 const colors = [
@@ -45,7 +42,7 @@ const { width } = useElementSize(chartRef);
 onMounted(() => {
   const config: uPlot.Options = {
     width: 1200,
-    height: 600,
+    height: props.height ?? 600,
     cursor: { sync: { key: "Uy1ru6de9eisha7EireiV5pooM8chaic" } },
     axes: [
       {
@@ -77,7 +74,7 @@ onMounted(() => {
           .join(", "),
         values: (_, values) =>
           values.map((v) =>
-            formatNumber(v, props.stationParameters[0].parameter.unit),
+            formatNumber(v, props.stationParameters[0].parameter.unit)
           ),
       },
     ],
@@ -89,8 +86,7 @@ onMounted(() => {
       ...props.stationParameters.map(
         ({ station, parameter }, index): uPlot.Series => {
           const stationName =
-            props.stations.find((s) => s.id === station.properties.station)
-              ?.name || station.properties.station;
+            props.stations.find((s) => s.id === station)?.name || station;
           return {
             label: `${stationName}: ${parameter.name} `,
             value: (_, v) => formatNumber(v, parameter.unit),
@@ -107,7 +103,7 @@ onMounted(() => {
   const chart = new uPlot(config, data, chartRef.value!);
   onUnmounted(() => chart.destroy());
 
-  watch(width, (w) => chart.setSize({ width: w, height: 600 }), {
+  watch(width, (w) => chart.setSize({ width: w, height: chart.height }), {
     immediate: true,
   });
 });

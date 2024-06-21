@@ -2,7 +2,8 @@
 
 A visual explorer tool for the ZAMG Data Hub (aka. GeoSphere Austria Data Hub).
 
-https://zamg-explorer.legner.me/
+- https://zamg-explorer.legner.me/
+- https://zamg-explorer.legner.me/hydro/
 
 ## Links
 
