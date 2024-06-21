@@ -39,13 +39,14 @@ function cssVar(variable: string): string {
 }
 
 const chartRef = ref<HTMLDivElement | null>(null);
-  
+
 const { width } = useElementSize(chartRef);
 
 onMounted(() => {
   const config: uPlot.Options = {
     width: 1200,
     height: 600,
+    cursor: { sync: { key: "Uy1ru6de9eisha7EireiV5pooM8chaic" } },
     axes: [
       {
         space: 80,
