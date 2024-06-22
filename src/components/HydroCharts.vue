@@ -32,7 +32,11 @@ import type { StationMetadata, GeoJSONFeatureParameter } from "./openapi";
 import { formatDateTime } from "../util/formatters";
 
 const web = "https://hydro.tirol.gv.at/#/Wasserstand?station=";
-const url = "https://corsproxy.io/?https://hydro.tirol.gv.at/ogd/OGD_W.csv";
+const url =
+  "https://corsproxy.io/?" +
+  encodeURI(
+    "https://hydro.tirol.gv.at/ogd/OGD_W.csv?" + Math.floor(Date.now() / 60_000)
+  );
 const { data, response } = useFetch(url).arrayBuffer();
 
 const hydro = computed(() => {
