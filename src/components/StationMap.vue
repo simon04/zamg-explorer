@@ -39,18 +39,28 @@ function setupMap() {
     "basemap.at Orthofoto": basemap("bmaporthofoto30cm", "normal", "jpeg"),
     OpenStreetMap: osm().addTo(map),
   }).addTo(map);
-  const latlngs = props.stations.map((station) =>
-    new CircleMarker(
-      { lat: station.lat, lng: station.lon },
-      { color: "#702065", fillColor: "#702065", radius: 8 },
+  const latlngs = props.stations
+    .filter(
+      (station) =>
+        station.lat > 47 &&
+        station.lat < 50 &&
+        station.lon > 9 &&
+        station.lon < 18,
     )
-      .bindTooltip(`${station.name} (${station.altitude}&thinsp;m&thinsp;ü.A.)`)
-      .on("click", () => {
-        window.location.href = `/${props.dataset}/station/?station=${station.id}`;
-      })
-      .addTo(map)
-      .getLatLng(),
-  );
+    .map((station) =>
+      new CircleMarker(
+        { lat: station.lat, lng: station.lon },
+        { color: "#702065", fillColor: "#702065", radius: 8 },
+      )
+        .bindTooltip(
+          `${station.name} (${station.altitude}&thinsp;m&thinsp;ü.A.)`,
+        )
+        .on("click", () => {
+          window.location.href = `/${props.dataset}/station/?station=${station.id}`;
+        })
+        .addTo(map)
+        .getLatLng(),
+    );
   map.fitBounds(latlngs as unknown as LatLngBoundsLiteral);
 }
 
