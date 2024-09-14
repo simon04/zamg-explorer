@@ -85,15 +85,14 @@ function statistics(mode: Mode, parameter: GeoJSONFeatureParameter): string {
   );
 }
 
-const stationsParameters = computed(
-  () =>
-    props.data?.features
-      ?.flatMap((station) =>
-        Object.values(station.properties.parameters).map((parameter) => ({
-          station: station.properties.station,
-          parameter,
-        })),
-      )
-      .sort((sp1, sp2) => sp1.parameter.name.localeCompare(sp2.parameter.name)),
+const stationsParameters = computed(() =>
+  props.data?.features
+    ?.flatMap((station) =>
+      Object.values(station.properties.parameters).map((parameter) => ({
+        station: station.properties.station,
+        parameter,
+      })),
+    )
+    .sort((sp1, sp2) => sp1.parameter.name.localeCompare(sp2.parameter.name)),
 );
 </script>

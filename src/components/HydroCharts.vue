@@ -35,7 +35,8 @@ const web = "https://hydro.tirol.gv.at/#/Wasserstand?station=";
 const url =
   "https://corsproxy.io/?" +
   encodeURI(
-    "https://hydro.tirol.gv.at/ogd/OGD_W.csv?" + Math.floor(Date.now() / 60_000)
+    "https://hydro.tirol.gv.at/ogd/OGD_W.csv?" +
+      Math.floor(Date.now() / 60_000),
   );
 const { data, response } = useFetch(url).arrayBuffer();
 
@@ -82,13 +83,13 @@ const hydro = computed(() => {
     } as GeoJSONFeatureParameter;
     result[station] ??= { metadata: value, station, parameter, timestamps: [] };
     result[station].timestamps.push(
-      Date.parse(cells[header.indexOf("Zeitstempel in ISO8601")]) / 1000
+      Date.parse(cells[header.indexOf("Zeitstempel in ISO8601")]) / 1000,
     );
     const v = +(cells[header.indexOf("Wert")] || "").replace(",", ".");
     result[station].parameter.data.push(v === -777 ? NaN : v);
   });
   return Object.values(result).sort((h1, h2) =>
-    h1.station.localeCompare(h2.station)
+    h1.station.localeCompare(h2.station),
   );
 });
 //

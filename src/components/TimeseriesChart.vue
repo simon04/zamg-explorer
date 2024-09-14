@@ -74,7 +74,7 @@ onMounted(() => {
           .join(", "),
         values: (_, values) =>
           values.map((v) =>
-            formatNumber(v, props.stationParameters[0].parameter.unit)
+            formatNumber(v, props.stationParameters[0].parameter.unit),
           ),
       },
     ],
