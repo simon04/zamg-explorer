@@ -66,7 +66,7 @@ function setupMap() {
 
 function basemap(variant = "geolandbasemap", type = "normal", format = "png") {
   return new TileLayer(
-    "https://maps.wien.gv.at/basemap/{variant}/{type}/google3857/{z}/{y}/{x}.{format}",
+    "https://mapsneu.wien.gv.at/basemap/{variant}/{type}/google3857/{z}/{y}/{x}.{format}",
     {
       maxZoom: 24,
       maxNativeZoom: 19,
