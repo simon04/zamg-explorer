@@ -34,10 +34,11 @@ function setupMap() {
   new Control.Attribution({ prefix: false }).addTo(map);
   new Control.Layers({
     "basemap.at": basemap(),
+    "basemap.at HiDPI": basemap('bmaphidpi', 'normal', 'jpeg').addTo(map),
     "basemap.at Gelände": basemap("bmapgelaende", "grau", "jpeg"),
     "basemap.at Grau": basemap("bmapgrau"),
     "basemap.at Orthofoto": basemap("bmaporthofoto30cm", "normal", "jpeg"),
-    OpenStreetMap: osm().addTo(map),
+    OpenStreetMap: osm(),
   }).addTo(map);
   const latlngs = props.stations
     .filter(
