@@ -4,14 +4,14 @@
       Statistiken
     </caption>
     <thead>
-     <tr>
-      <th>Station</th>
-      <th>Parameter</th>
-      <th class="text-end">Min</th>
-      <th class="text-end">⌀</th>
-      <th class="text-end">Max</th>
-      <th class="text-end">Summe</th>
-     </tr>
+      <tr>
+        <th>Station</th>
+        <th>Parameter</th>
+        <th class="text-end">Min</th>
+        <th class="text-end">⌀</th>
+        <th class="text-end">Max</th>
+        <th class="text-end">Summe</th>
+      </tr>
     </thead>
     <tbody>
       <tr v-for="sp in stationsParameters">

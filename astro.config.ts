@@ -5,7 +5,7 @@ import mdx from "@astrojs/mdx";
 import { execSync } from "child_process";
 import { readFileSync } from "fs";
 
-function git(command) {
+function git(command: string) {
   return execSync(`git ${command}`, { encoding: "utf8" }).trim();
 }
 

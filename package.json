@@ -2,7 +2,7 @@
   "name": "zamg-explorer",
   "author": "Simon Legner <Simon.Legner@gmail.com>",
   "license": "GPL-3.0",
-  "packageManager": "yarn@4.5.3",
+  "packageManager": "yarn@4.6.0",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -14,21 +14,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.1",
-    "@astrojs/vue": "^5.0.1",
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/vue": "^5.0.4",
     "@popperjs/core": "^2.11.8",
     "@vue/reactivity": "^3.5.13",
-    "@vueuse/core": "^12.0.0",
-    "@vueuse/math": "^12.0.0",
-    "astro": "^5.0.3",
+    "@vueuse/core": "^12.3.0",
+    "@vueuse/math": "^12.3.0",
+    "astro": "^5.1.2",
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "uplot": "^1.6.31",
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.14",
-    "prettier": "^3.4.1",
+    "@types/leaflet": "^1.9.15",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2"
   }
 }
