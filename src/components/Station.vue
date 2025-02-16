@@ -94,14 +94,14 @@
     <input type="date" class="form-control" v-model="params.end" />
   </div>
 
-  <div class="mb-3 d-print-none">
-    <button class="btn btn-primary me-2">
+  <div class="d-print-none">
+    <button class="btn btn-primary mb-3 me-2">
       Graph aktualisieren (automatisch)
     </button>
-    <a :href="url.replace(/geojson/, 'csv')" class="btn btn-success me-2">
+    <a :href="url.replace(/geojson/, 'csv')" class="btn btn-success mb-3 me-2">
       CSV-Download
     </a>
-    <a :href="url" class="btn btn-success me-2">GeoJSON-Download</a>
+    <a :href="url" class="btn btn-success mb-3 me-2">GeoJSON-Download</a>
   </div>
 
   <div v-if="error">{{ error }}</div>
