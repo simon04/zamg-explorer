@@ -189,7 +189,7 @@ const url = computed(
 );
 const { isFetching, error, data } = useFetch(
   refDebounced(
-    computed(() => "https://corsproxy.io/?" + encodeURIComponent(url.value)),
+    url,
     400,
   ),
   { refetch: true },
