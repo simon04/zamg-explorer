@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.8",
-    "@astrojs/vue": "^5.0.6",
+    "@astrojs/vue": "^5.0.7",
     "@popperjs/core": "^2.11.8",
     "@vue/reactivity": "^3.5.13",
-    "@vueuse/core": "^12.4.0",
-    "@vueuse/math": "^12.4.0",
-    "astro": "^5.3.0",
+    "@vueuse/core": "^12.7.0",
+    "@vueuse/math": "^12.7.0",
+    "astro": "^5.3.1",
     "bootstrap": "^5.3.3",
     "leaflet": "^1.9.4",
     "uplot": "^1.6.31",
@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.16",
-    "prettier": "^3.4.2"
+    "prettier": "^3.5.2"
   }
 }
