@@ -23,6 +23,12 @@ This project uses bleeding-edge technology in order to maximize development effo
 - https://vueuse.org/
 - https://getbootstrap.com/
 
+```sh
+pnpm install
+pnpm run build
+pnpm run dev
+```
+
 ## Author and License
 
 - Author: simon04
